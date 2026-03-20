@@ -1,17 +1,1372 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>UNFUCKWITHABLE — Quiz Gratuito</title>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.2/babel.min.js"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UNFUCKWITHABLE — Riprendi in mano la tua vita</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=DM+Sans:wght@300;400;500;600&family=Bebas+Neue&display=swap" rel="stylesheet">
+<style>
+
+/* ═══════════════════════════════════════════
+   ROOT PALETTE
+═══════════════════════════════════════════ */
+:root {
+  --greige:        #e8e0d5;
+  --greige-dark:   #d4c8bc;
+  --blush:         #f2ddd8;
+  --blush-mid:     #e8c4bb;
+  --blush-deep:    #d4a09a;
+  --sand:          #f5ede4;
+  --warm-white:    #fdf9f6;
+  --rosegold:      #c4906a;
+  --rosegold-light:#e8c4aa;
+  --rosegold-dark: #a87658;
+  --taupe:         #9a6b70;
+  --taupe-mid:     rgba(106,74,74,0.7);
+  --taupe-soft:    rgba(160,118,104,0.7);
+  --divider:       rgba(196,144,106,0.22);
+  --red-rose:      #b5675f;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; scroll-padding-top: 0; }
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--greige);
+  color: var(--taupe);
+  overflow-x: hidden;
+}
+
+/* noise grain */
+body::before {
+  content: '';
+  position: fixed; inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.025'/%3E%3C/svg%3E");
+  pointer-events: none; z-index: 9999; opacity: 0.35;
+}
+
+/* ═══════════════════════════════════════════
+   SHARED UTILITIES
+═══════════════════════════════════════════ */
+.section-inner { max-width: 1100px; margin: 0 auto; padding: 0 4rem; }
+
+.eyebrow {
+  font-size: 0.65rem; font-weight: 700;
+  letter-spacing: 0.3em; text-transform: uppercase;
+  color: var(--rosegold-dark);
+  display: flex; align-items: center; gap: 0.8rem;
+  margin-bottom: 1.4rem;
+}
+.eyebrow::before {
+  content: ''; width: 1.8rem; height: 1px;
+  background: var(--rosegold-dark); flex-shrink: 0;
+}
+
+.btn-primary {
+  display: inline-flex; align-items: center; gap: 0.7rem;
+  background: var(--rosegold); color: var(--warm-white);
+  font-size: 0.78rem; font-weight: 700;
+  letter-spacing: 0.15em; text-transform: uppercase;
+  padding: 1.1rem 2.4rem; text-decoration: none;
+  transition: all 0.3s; position: relative; overflow: hidden;
+  border: none; cursor: pointer;
+}
+.btn-primary::after {
+  content: ''; position: absolute; inset: 0;
+  background: rgba(255,255,255,0.18);
+  transform: translateX(-100%); transition: transform 0.3s;
+}
+.btn-primary:hover::after { transform: translateX(0); }
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 10px 28px rgba(196,144,106,0.32); }
+
+.btn-ghost-warm {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  font-size: 0.7rem; letter-spacing: 0.14em; text-transform: uppercase;
+  color: rgba(196,144,106,0.65); text-decoration: none;
+  border: 1px solid rgba(196,144,106,0.3);
+  padding: 0.8rem 1.6rem;
+  transition: all 0.3s; background: transparent;
+}
+.btn-ghost-warm:hover {
+  background: rgba(196,144,106,0.08);
+  color: var(--rosegold-dark);
+  border-color: var(--rosegold);
+}
+
+.reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.7s ease, transform 0.7s ease; }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+/* ═══════════════════════════════════════════
+   SECTION 1 — HERO
+═══════════════════════════════════════════ */
+.hero {
+  min-height: 100vh;
+  display: grid; grid-template-rows: auto 1fr auto;
+  background: var(--greige);
+  position: relative; overflow: hidden;
+}
+
+.hero-bg {
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse 80% 55% at 72% 18%, rgba(212,160,154,0.28) 0%, transparent 65%),
+    radial-gradient(ellipse 50% 40% at 12% 82%, rgba(196,144,106,0.18) 0%, transparent 60%);
+  z-index: 0;
+}
+
+.hero-top-line {
+  position: absolute; top: 0; left: 0; right: 0; height: 2px;
+  background: linear-gradient(90deg, transparent 0%, var(--rosegold) 35%, var(--blush-mid) 70%, transparent 100%);
+  z-index: 2;
+}
+
+nav {
+  position: relative; z-index: 10;
+  padding: 2rem 4rem;
+  display: flex; align-items: center; justify-content: space-between;
+}
+
+.logo {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.4rem; letter-spacing: 0.15em;
+  color: var(--rosegold);
+}
+
+.nav-cta {
+  font-size: 0.72rem; font-weight: 600;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--warm-white); background: var(--rosegold);
+  padding: 0.65rem 1.5rem; text-decoration: none;
+  transition: background 0.3s;
+}
+.nav-cta:hover { background: var(--rosegold-dark); }
+
+.hero-content {
+  position: relative; z-index: 5;
+  display: flex; flex-direction: column; justify-content: center;
+  padding: 2rem 4rem 4rem; max-width: 1100px;
+}
+
+.hero-eyebrow {
+  font-size: 0.68rem; font-weight: 600;
+  letter-spacing: 0.28em; text-transform: uppercase;
+  color: var(--rosegold); margin-bottom: 1.6rem;
+  display: flex; align-items: center; gap: 1rem;
+}
+.hero-eyebrow::before {
+  content: ''; display: block;
+  width: 2rem; height: 1px; background: var(--rosegold);
+}
+
+.hero-headline {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(4.5rem, 11vw, 9.5rem);
+  line-height: 0.9; letter-spacing: 0.02em; margin-bottom: 1rem;
+}
+.hero-headline .l1 { display: block; color: var(--taupe); }
+.hero-headline .l2 { display: block; color: var(--rosegold); }
+.hero-headline .l3 {
+  display: block; color: transparent;
+  -webkit-text-stroke: 1.5px rgba(196,144,106,0.38);
+}
+
+.hero-sub {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(1.15rem, 2.4vw, 1.65rem);
+  font-weight: 300; font-style: italic;
+  color: rgba(160,118,104,0.75);
+  max-width: 580px; margin: 1.6rem 0 2.5rem; line-height: 1.55;
+}
+.hero-sub strong { color: var(--rosegold-dark); font-style: normal; font-weight: 600; }
+
+.hero-ctas { display: flex; flex-direction: column; gap: 0.9rem; align-items: flex-start; }
+
+.hero-ghost {
+  font-size: 0.68rem; letter-spacing: 0.14em; text-transform: uppercase;
+  color: rgba(196,144,106,0.55); text-decoration: none;
+  display: flex; align-items: center; gap: 0.5rem;
+  transition: color 0.3s;
+}
+.hero-ghost:hover { color: var(--rosegold-dark); }
+
+.hero-stats {
+  position: relative; z-index: 5;
+  padding: 2rem 4rem;
+  display: grid; grid-template-columns: repeat(3, auto);
+  gap: 0; max-width: 560px;
+  border-top: 1px solid var(--divider);
+}
+.stat {
+  padding: 1.4rem 2.2rem 1.4rem 0;
+  border-right: 1px solid var(--divider);
+}
+.stat:last-child { border-right: none; }
+.stat-num {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 2.6rem; color: var(--rosegold); line-height: 1;
+}
+.stat-label {
+  font-size: 0.6rem; letter-spacing: 0.16em;
+  text-transform: uppercase; color: var(--taupe-soft);
+  margin-top: 0.3rem;
+}
+
+/* ═══════════════════════════════════════════
+   TICKER
+═══════════════════════════════════════════ */
+.ticker { background: var(--rosegold); padding: 0.65rem 0; overflow: hidden; white-space: nowrap; }
+.ticker-inner { display: inline-flex; animation: ticker 22s linear infinite; }
+.ticker-word {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 0.82rem; letter-spacing: 0.15em;
+  color: var(--warm-white); padding: 0 1.8rem;
+}
+.ticker-sep { color: rgba(253,249,246,0.4); padding: 0 0.3rem; }
+@keyframes ticker { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+
+/* ═══════════════════════════════════════════
+   SECTION 2 — PAIN
+═══════════════════════════════════════════ */
+.pain {
+  background: var(--blush);
+  padding: 8rem 0; overflow: hidden; position: relative;
+}
+
+.pain-watermark {
+  position: absolute; top: 50%; left: 50%;
+  transform: translate(-50%,-50%);
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 20vw; color: rgba(196,144,106,0.05);
+  white-space: nowrap; pointer-events: none; user-select: none;
+  letter-spacing: 0.1em;
+}
+
+.pain-headline {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(2.1rem, 3.8vw, 3.4rem);
+  font-weight: 600; line-height: 1.15;
+  color: var(--taupe); max-width: 680px; margin-bottom: 3rem;
+}
+
+.pain-grid {
+  display: grid; grid-template-columns: repeat(2, 1fr);
+  gap: 1.5px; background: rgba(196,144,106,0.18);
+  margin-top: 3rem;
+}
+
+.pain-card {
+  background: var(--blush);
+  padding: 2rem 2.4rem;
+  display: flex; gap: 1.1rem; align-items: flex-start;
+  transition: background 0.3s;
+}
+.pain-card:hover { background: var(--blush-mid); }
+
+.pain-icon { font-size: 1.25rem; flex-shrink: 0; margin-top: 0.1rem; }
+
+.pain-card-text { font-size: 0.92rem; line-height: 1.65; color: var(--taupe); }
+.pain-card-text strong {
+  display: block; font-size: 0.75rem; font-weight: 700;
+  letter-spacing: 0.09em; text-transform: uppercase;
+  color: var(--rosegold-dark); margin-bottom: 0.3rem;
+}
+
+.pain-quote {
+  margin-top: 4rem; padding: 2.4rem 3rem;
+  border-left: 3px solid var(--rosegold);
+  background: rgba(196,144,106,0.07);
+}
+.pain-quote p {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.35rem; font-style: italic;
+  line-height: 1.55; color: var(--taupe);
+}
+.pain-quote cite {
+  display: block; margin-top: 0.8rem;
+  font-style: normal; font-size: 0.65rem;
+  letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--taupe-soft);
+}
+
+/* ═══════════════════════════════════════════
+   SECTION 3 — REFRAME
+═══════════════════════════════════════════ */
+.reframe { background: var(--greige-dark); padding: 8rem 0; }
+
+.reframe-split {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 6rem; align-items: center;
+}
+
+.reframe-headline {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(3rem, 5vw, 5rem);
+  line-height: 0.97; letter-spacing: 0.02em;
+  margin-bottom: 1.6rem;
+}
+.reframe-headline .rh-taupe { color: var(--taupe); }
+.reframe-headline .rh-gold  { color: var(--rosegold); }
+
+.reframe-body {
+  font-size: 0.96rem; line-height: 1.8;
+  color: rgba(106,74,74,0.72); margin-bottom: 1.4rem;
+}
+.reframe-body strong { color: var(--rosegold-dark); font-weight: 600; }
+
+.reframe-steps { list-style: none; display: flex; flex-direction: column; gap: 0; margin-top: 0.5rem; }
+.reframe-step {
+  display: flex; align-items: flex-start; gap: 1rem;
+  font-size: 0.88rem; line-height: 1.5;
+  color: rgba(106,74,74,0.72);
+  padding: 1rem 0;
+  border-bottom: 1px solid var(--divider);
+}
+.reframe-step:last-child { border-bottom: none; }
+.reframe-step strong { color: var(--rosegold-dark); }
+
+.step-n {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 2.2rem; line-height: 1;
+  color: var(--rosegold); flex-shrink: 0; width: 2.2rem;
+}
+
+.quote-card {
+  background: rgba(196,144,106,0.1);
+  border: 1px solid rgba(196,144,106,0.28);
+  padding: 3rem; position: relative;
+}
+.quote-card::before {
+  content: '\201C';
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 8rem; line-height: 0.5;
+  color: rgba(196,144,106,0.18);
+  position: absolute; top: 2rem; left: 2rem;
+}
+.quote-card .qt {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.45rem; font-style: italic;
+  line-height: 1.55; color: var(--taupe);
+  position: relative; z-index: 1;
+}
+.quote-card .qa {
+  margin-top: 1.5rem; font-size: 0.65rem;
+  letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--rosegold);
+}
+
+/* ═══════════════════════════════════════════
+   SECTION 4 — LEAD MAGNET + FORM
+═══════════════════════════════════════════ */
+.gift {
+  background: var(--sand);
+  padding: 8rem 0; position: relative; overflow: hidden;
+}
+
+.gift-watermark {
+  position: absolute; right: -3rem; top: 50%;
+  transform: translateY(-50%) rotate(90deg);
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 16rem; color: rgba(196,144,106,0.05);
+  letter-spacing: 0.1em; pointer-events: none; user-select: none;
+}
+
+.gift-headline {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(2.5rem, 5vw, 5rem);
+  line-height: 0.97; letter-spacing: 0.02em;
+  color: var(--taupe); margin-bottom: 0.8rem; max-width: 720px;
+}
+
+.gift-sub {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.25rem; font-style: italic;
+  color: var(--taupe-soft);
+  max-width: 600px; line-height: 1.55; margin-bottom: 3rem;
+}
+
+.gift-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 1.5px; background: rgba(196,144,106,0.18);
+  margin-bottom: 4rem;
+}
+
+.gift-card {
+  background: var(--warm-white);
+  padding: 2rem 1.8rem; transition: background 0.3s;
+}
+.gift-card:hover { background: var(--blush); }
+
+.gift-icon { font-size: 1.7rem; margin-bottom: 0.8rem; }
+.gift-title {
+  font-size: 0.75rem; font-weight: 700;
+  letter-spacing: 0.07em; text-transform: uppercase;
+  color: var(--rosegold-dark); margin-bottom: 0.4rem;
+}
+.gift-desc { font-size: 0.83rem; color: var(--taupe-soft); line-height: 1.55; }
+
+/* Form */
+.form-wrap {
+  background: var(--warm-white);
+  padding: 2.8rem; max-width: 520px;
+  border: 1px solid var(--divider);
+}
+.form-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.6rem; letter-spacing: 0.05em;
+  color: var(--taupe); margin-bottom: 0.3rem;
+}
+.form-sub { font-size: 0.78rem; color: var(--taupe-soft); margin-bottom: 1.5rem; }
+
+.form-fields { display: flex; flex-direction: column; gap: 0.75rem; margin-bottom: 0.8rem; }
+
+.form-input, .form-select {
+  background: rgba(247,240,236,0.7);
+  border: 1px solid rgba(196,144,106,0.28);
+  color: var(--taupe);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.88rem; padding: 1rem 1.2rem;
+  width: 100%; outline: none;
+  transition: border-color 0.3s, background 0.3s;
+  -webkit-appearance: none; appearance: none;
+}
+.form-input::placeholder { color: rgba(196,144,106,0.55); }
+.form-input:focus, .form-select:focus {
+  border-color: var(--rosegold);
+  background: rgba(196,144,106,0.06);
+}
+.form-select { color: rgba(154,107,112,0.75); cursor: pointer; }
+.form-select option { background: #f5ede4; color: var(--taupe); }
+
+.btn-form {
+  width: 100%; background: var(--rosegold); color: var(--warm-white);
+  font-family: 'DM Sans', sans-serif; font-size: 0.78rem;
+  font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase;
+  padding: 1.15rem; border: none; cursor: pointer;
+  transition: all 0.3s; position: relative; overflow: hidden;
+  margin-top: 0.3rem;
+}
+.btn-form::after {
+  content: ''; position: absolute; inset: 0;
+  background: rgba(255,255,255,0.2);
+  transform: translateX(-100%); transition: transform 0.3s;
+}
+.btn-form:hover::after { transform: translateX(0); }
+.btn-form:hover { background: var(--rosegold-dark); }
+
+.gift-cta {
+  text-align: center;
+  padding: 3rem 2rem;
+  background: var(--warm-white);
+  border: 1px solid var(--divider);
+  margin-top: 1rem;
+}
+.gift-cta-text {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.2rem; font-style: italic;
+  color: var(--taupe); margin-bottom: 1.5rem; line-height: 1.55;
+}
+.gift-cta-note {
+  font-size: 0.65rem; color: var(--taupe-soft);
+  letter-spacing: 0.1em; margin-top: 1rem;
+  text-transform: uppercase;
+}
+
+/* ═══════════════════════════════════════════
+   SECTION 5 — TESTIMONIALS
+═══════════════════════════════════════════ */
+.testimonials { background: var(--blush); padding: 8rem 0; }
+
+.testi-headline {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(2rem, 3.5vw, 3rem);
+  font-weight: 600; line-height: 1.2;
+  color: var(--taupe); margin-bottom: 3.5rem; max-width: 600px;
+}
+.testi-headline em { color: rgba(196,144,106,0.5); font-style: italic; }
+
+.testi-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 1.5px; background: rgba(196,144,106,0.18);
+}
+
+.testi-card {
+  background: var(--blush); padding: 2.4rem 2rem;
+  border: 1px solid transparent;
+  transition: background 0.3s, border-color 0.3s;
+}
+.testi-card:hover {
+  background: var(--blush-mid);
+  border-color: rgba(196,144,106,0.25);
+}
+
+.testi-stars { color: var(--rosegold); font-size: 0.72rem; letter-spacing: 0.1em; margin-bottom: 1.2rem; }
+.testi-quote {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.02rem; font-style: italic;
+  line-height: 1.65; color: rgba(106,74,74,0.78);
+  margin-bottom: 1.5rem;
+}
+.testi-name {
+  font-size: 0.68rem; font-weight: 700;
+  letter-spacing: 0.13em; text-transform: uppercase;
+  color: var(--rosegold-dark);
+}
+.testi-role { font-size: 0.62rem; color: rgba(160,118,104,0.6); margin-top: 0.2rem; }
+.testi-badge {
+  margin-top: 1rem; padding: 0.55rem 0.8rem;
+  background: rgba(196,144,106,0.14);
+  font-size: 0.7rem; font-weight: 600;
+  color: var(--rosegold-dark); letter-spacing: 0.04em;
+}
+
+/* Trust bar */
+.trust-bar {
+  margin-top: 3.5rem;
+  background: var(--warm-white);
+  border-top: 1px solid var(--divider);
+  border-bottom: 1px solid var(--divider);
+  padding: 1.6rem 0;
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  text-align: center;
+}
+.trust-item {
+  padding: 0.5rem 1rem;
+  border-right: 1px solid var(--divider);
+  transition: background 0.3s;
+}
+.trust-item:last-child { border-right: none; }
+.trust-item:hover { background: var(--blush); }
+.trust-val {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.5rem; color: var(--rosegold); line-height: 1;
+}
+.trust-label {
+  font-size: 0.6rem; letter-spacing: 0.13em;
+  text-transform: uppercase; color: var(--taupe-soft);
+  margin-top: 0.25rem;
+}
+
+.testi-nudge {
+  text-align: center; margin-top: 3rem;
+}
+.testi-nudge p {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.2rem; font-style: italic;
+  color: rgba(160,118,104,0.75);
+}
+.testi-arrow {
+  display: block; font-size: 1.2rem;
+  color: var(--rosegold); margin-top: 0.5rem;
+  animation: nudge 1.8s ease-in-out infinite;
+}
+@keyframes nudge { 0%,100%{transform:translateY(0)} 50%{transform:translateY(5px)} }
+
+/* ═══════════════════════════════════════════
+   SECTION 6 — METHOD
+═══════════════════════════════════════════ */
+.method {
+  background: var(--blush-deep);
+  padding: 8rem 0; position: relative; overflow: hidden;
+}
+
+.method-watermark {
+  position: absolute; bottom: -3rem; left: -2rem;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 18vw; color: rgba(253,249,246,0.05);
+  letter-spacing: 0.1em; pointer-events: none; user-select: none;
+}
+
+.method .eyebrow { color: var(--rosegold-light); }
+.method .eyebrow::before { background: var(--rosegold-light); }
+
+.method-headline {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(2rem, 3.5vw, 3rem);
+  font-weight: 600; line-height: 1.2;
+  color: var(--warm-white);
+  max-width: 700px; margin-bottom: 3.5rem;
+}
+.method-headline em { color: rgba(253,249,246,0.45); }
+
+.method-steps {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 0;
+  position: relative; z-index: 1;
+}
+
+.method-step {
+  padding: 0 2.5rem 0 0;
+  border-right: 1px solid rgba(253,249,246,0.2);
+}
+.method-step:last-child { border-right: none; padding-right: 0; }
+.method-step:not(:first-child) { padding-left: 2.5rem; }
+
+.step-big-num {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 4.5rem; line-height: 1;
+  color: rgba(253,249,246,0.13); margin-bottom: 0.8rem;
+  transition: color 0.3s;
+}
+.method-step:hover .step-big-num { color: rgba(253,249,246,0.25); }
+
+.step-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.55rem; letter-spacing: 0.05em;
+  color: var(--warm-white); margin-bottom: 0.8rem;
+}
+
+.step-desc {
+  font-size: 0.87rem; line-height: 1.75;
+  color: rgba(253,249,246,0.82);
+}
+
+.method-proof {
+  margin-top: 4rem; padding-top: 2.5rem;
+  border-top: 1px solid rgba(253,249,246,0.18);
+  text-align: center;
+}
+.method-proof p {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.1rem; font-style: italic;
+  color: rgba(253,249,246,0.7);
+  max-width: 640px; margin: 0 auto 1.8rem;
+  line-height: 1.6;
+}
+.method-btns { display: flex; gap: 1rem; justify-content: center; }
+
+/* ═══════════════════════════════════════════
+   SECTION 7 — OFFER
+═══════════════════════════════════════════ */
+.offer {
+  background: var(--sand);
+  padding: 8rem 0; position: relative;
+}
+.offer::before {
+  content: ''; position: absolute;
+  top: 0; left: 0; right: 0; height: 1px;
+  background: linear-gradient(90deg, transparent, var(--rosegold), transparent);
+}
+
+.offer-split {
+  display: grid; grid-template-columns: 1fr 1.2fr;
+  gap: 6rem; align-items: center;
+}
+
+.offer-tag {
+  display: inline-block;
+  font-size: 0.62rem; font-weight: 700;
+  letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--warm-white); background: var(--rosegold);
+  padding: 0.3rem 0.85rem; margin-bottom: 1.5rem;
+}
+
+.offer-headline {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(2.5rem, 4vw, 4.2rem);
+  line-height: 0.97; letter-spacing: 0.02em; margin-bottom: 1.2rem;
+  color: var(--taupe);
+}
+.offer-headline .og { color: var(--rosegold); }
+
+.offer-body {
+  font-size: 0.93rem; line-height: 1.82;
+  color: var(--taupe-mid); margin-bottom: 1.6rem;
+}
+.offer-body strong { color: var(--rosegold-dark); }
+
+.check-list { list-style: none; display: flex; flex-direction: column; gap: 0.8rem; margin-bottom: 2.4rem; }
+.check-list li {
+  display: flex; align-items: center; gap: 0.8rem;
+  font-size: 0.87rem; color: rgba(106,74,74,0.75);
+  transition: color 0.3s;
+}
+.check-list li:hover { color: var(--rosegold-dark); }
+
+.chk {
+  width: 1.15rem; height: 1.15rem;
+  background: var(--rosegold);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0; font-size: 0.55rem;
+  color: var(--warm-white); font-weight: 900;
+}
+
+/* Offer card */
+.offer-card {
+  background: var(--warm-white);
+  border: 1px solid rgba(196,144,106,0.2);
+  padding: 3rem;
+}
+.offer-card-label {
+  font-size: 0.62rem; font-weight: 700;
+  letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--rosegold); margin-bottom: 1.5rem;
+}
+.offer-card-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.45rem; font-style: italic;
+  color: var(--taupe); line-height: 1.45; margin-bottom: 2rem;
+}
+
+.urgency-strip {
+  display: flex; align-items: center; gap: 0.8rem;
+  padding: 0.95rem 1.2rem;
+  background: rgba(181,103,95,0.09);
+  border: 1px solid rgba(181,103,95,0.22);
+  margin-bottom: 1.5rem;
+}
+.urgency-dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--blush-deep); flex-shrink: 0;
+  animation: pulse 1.6s ease-in-out infinite;
+}
+@keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.45;transform:scale(0.78)} }
+.urgency-txt { font-size: 0.72rem; color: var(--red-rose); letter-spacing: 0.04em; }
+
+/* ═══════════════════════════════════════════
+   SECTION 8 — FINAL CTA
+═══════════════════════════════════════════ */
+.final {
+  background: var(--greige);
+  padding: 8rem 0; text-align: center;
+  position: relative; overflow: hidden;
+}
+.final-headline {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(3.5rem, 8vw, 7.5rem);
+  line-height: 0.93; letter-spacing: 0.02em;
+  color: var(--taupe); margin-bottom: 1.4rem;
+}
+.final-headline .fg { color: var(--rosegold); }
+.final-sub {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.28rem; font-style: italic;
+  color: rgba(160,118,104,0.72);
+  max-width: 540px; margin: 0 auto 3rem; line-height: 1.55;
+}
+
+/* ═══════════════════════════════════════════
+   FOOTER
+═══════════════════════════════════════════ */
+footer {
+  background: var(--rosegold-dark);
+  padding: 2.8rem 4rem;
+  display: flex; justify-content: space-between; align-items: center;
+}
+.footer-logo {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.2rem; letter-spacing: 0.15em;
+  color: var(--warm-white);
+}
+.footer-links { display: flex; gap: 2rem; }
+.footer-links a {
+  font-size: 0.62rem; letter-spacing: 0.12em;
+  text-transform: uppercase; color: rgba(253,249,246,0.45);
+  text-decoration: none; transition: color 0.3s;
+}
+.footer-links a:hover { color: var(--warm-white); }
+
+/* ═══════════════════════════════════════════
+   RESPONSIVE
+═══════════════════════════════════════════ */
+@media (max-width: 800px) {
+  nav, .hero-content, .hero-stats, .section-inner {
+    padding-left: 1.6rem; padding-right: 1.6rem;
+  }
+  .pain-grid, .gift-grid, .testi-grid, .method-steps { grid-template-columns: 1fr; }
+  .reframe-split, .offer-split { grid-template-columns: 1fr; gap: 3rem; }
+  .trust-bar { grid-template-columns: repeat(2,1fr); }
+  .hero-stats { grid-template-columns: repeat(3,1fr); }
+  .method-step { padding: 0 0 2rem 0 !important; border-right: none !important; border-bottom: 1px solid rgba(253,249,246,0.2); }
+  .method-step:last-child { border-bottom: none; padding-bottom: 0; }
+  .method-btns { flex-direction: column; align-items: center; }
+  footer { flex-direction: column; gap: 1.5rem; text-align: center; }
+  .footer-links { flex-wrap: wrap; justify-content: center; }
+}
+
+</style>
 </head>
 <body>
-  <div id="root"></div>
-  <script type="text/babel">
-    const { useState, useEffect, useRef } = React;
+
+<!-- ══════════════════════════════════════
+     SECTION 1 — HERO
+══════════════════════════════════════ -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-top-line"></div>
+
+  <nav>
+    <div class="logo">Unfuckwithable</div>
+    <a href="#quiz" class="nav-cta">Scarica Gratis →</a>
+  </nav>
+
+  <div class="hero-content">
+    <div class="hero-eyebrow reveal">Per le donne che ne hanno abbastanza di aspettare</div>
+    <h1 class="hero-headline reveal">
+      <span class="l1">Non sei</span>
+      <span class="l2">rotta.</span>
+      <span class="l3">Sei pronta.</span>
+    </h1>
+    <p class="hero-sub reveal">
+      Hai già tutto quello che ti serve.<br>
+      Ti manca solo <strong>qualcuno che te lo dimostri</strong> — e il metodo per trasformarlo in risultati concreti.
+    </p>
+    <div class="hero-ctas reveal">
+      <a href="#quiz" class="btn-primary">↓ Scopri il tuo profilo gratis</a>
+      <a href="#chi-sono" class="hero-ghost">Scopri chi sono →</a>
+    </div>
+  </div>
+
+  <div class="hero-stats">
+    <div class="stat reveal">
+      <div class="stat-num">90</div>
+      <div class="stat-label">giorni per i tuoi primi risultati</div>
+    </div>
+    <div class="stat reveal">
+      <div class="stat-num">0€</div>
+      <div class="stat-label">per iniziare oggi</div>
+    </div>
+    <div class="stat reveal">
+      <div class="stat-num">1</div>
+      <div class="stat-label">passo alla volta, dal tuo ritmo</div>
+    </div>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker" aria-hidden="true">
+  <div class="ticker-inner">
+    <span class="ticker-word">Riparto da Me</span><span class="ticker-sep">◆</span>
+    <span class="ticker-word">Da Zero a Indipendente</span><span class="ticker-sep">◆</span>
+    <span class="ticker-word">Digitale Senza Paura</span><span class="ticker-sep">◆</span>
+    <span class="ticker-word">Coaching ICF Certificato</span><span class="ticker-sep">◆</span>
+    <span class="ticker-word">Mentalità Vincente</span><span class="ticker-sep">◆</span>
+    <span class="ticker-word">Risultati in 90 Giorni</span><span class="ticker-sep">◆</span>
+    <span class="ticker-word">Libertà Economica</span><span class="ticker-sep">◆</span>
+    <span class="ticker-word">Riparto da Me</span><span class="ticker-sep">◆</span>
+    <span class="ticker-word">Da Zero a Indipendente</span><span class="ticker-sep">◆</span>
+    <span class="ticker-word">Digitale Senza Paura</span><span class="ticker-sep">◆</span>
+    <span class="ticker-word">Coaching ICF Certificato</span><span class="ticker-sep">◆</span>
+    <span class="ticker-word">Mentalità Vincente</span><span class="ticker-sep">◆</span>
+    <span class="ticker-word">Risultati in 90 Giorni</span><span class="ticker-sep">◆</span>
+    <span class="ticker-word">Libertà Economica</span><span class="ticker-sep">◆</span>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════
+     SECTION 2B — CHI SONO
+══════════════════════════════════════ -->
+<section class="about" id="chi-sono">
+  <div class="about-bg"></div>
+  <div class="section-inner">
+    <div class="about-split">
+
+      <!-- Left: photo -->
+      <div class="about-photo-col reveal">
+        <div class="about-photo-wrap">
+          <img src="https://drive.google.com/uc?export=view&id=1nKSS80fHnjLdusb2LJudf0fudo0rP3KQ" alt="Emanuela Allietti — Coach ICF" class="about-photo" onerror="this.style.background='var(--blush)';this.style.minHeight='400px'" referrerpolicy="no-referrer" crossorigin="anonymous" />
+          <div class="about-photo-badge">
+            <span class="badge-icon">✦</span>
+            <span class="badge-text">Coach Professionista ICF</span>
+          </div>
+          <div class="about-cert-strip">
+            <div class="cert-item">
+              <div class="cert-val">ICF</div>
+              <div class="cert-label">Level 2 Certified</div>
+            </div>
+            <div class="cert-divider"></div>
+            <div class="cert-item">
+              <div class="cert-val">AICP</div>
+              <div class="cert-label">Associazione Italiana Coach</div>
+            </div>
+            <div class="cert-divider"></div>
+            <div class="cert-item">
+              <div class="cert-val">144h</div>
+              <div class="cert-label">Formazione certificata</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: story -->
+      <div class="about-content">
+        <div class="eyebrow reveal">Chi sono</div>
+        <h2 class="about-headline reveal">
+          Sono Emanuela.<br>
+          <span class="ah-gold">Ho vissuto quello<br>che stai vivendo tu.</span>
+        </h2>
+
+        <div class="about-story reveal">
+          <p>Per 20 anni ho lavorato nella grande distribuzione — commessa, addetta alle vendite, contratti precari. Nel 2017 ho toccato il fondo: orari assurdi, sei giorni su sette, dalle 7 alle 21. <strong>Vedevo mia figlia Asya solo nel mio giorno di riposo.</strong></p>
+          <p>Una sera, in videochiamata, lei mi ha detto: <em>"Mamma, posso tornare a stare con te? Mi manchi tanto."</em></p>
+          <p>Quella frase ha cambiato tutto. Ho capito che dovevo cambiare il mio modo di lavorare — e ho iniziato a studiare, formarmi, capire come funzionava il mondo online.</p>
+          <p>In quasi 10 anni ho costruito competenze in social media, copywriting, web design, strategia digitale, PNL, mindset, ipnosi, crescita personale e coaching professionale. <strong>Non per diventare un'esperta. Per diventare libera.</strong></p>
+          <p>Oggi sono una <strong>Coach Professionista certificata ICF</strong> e affianco le donne che — come ero io — vogliono smettere di sopravvivere e iniziare davvero a vivere. Con un business che le rappresenta. Con il tempo per chi amano. Con la certezza di farcela.</p>
+        </div>
+
+        <div class="about-tags reveal">
+          <span class="about-tag">Social Media Strategy</span>
+          <span class="about-tag">Mindset & PNL</span>
+          <span class="about-tag">Business Digitale</span>
+          <span class="about-tag">Ipnosi & Crescita Personale</span>
+          <span class="about-tag">Coaching ICF Level 2</span>
+          <span class="about-tag">Copywriting</span>
+          <span class="about-tag">Web Design</span>
+          <span class="about-tag">Intelligenza Artificiale</span>
+        </div>
+
+        <blockquote class="about-quote reveal">
+          <p>"Non ti insegno teoria. Ti insegno quello che ha funzionato per me — e per le donne che hanno deciso di smettere di aspettare."</p>
+          <cite>— Emanuela Allietti</cite>
+        </blockquote>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<style>
+.about {
+  background: var(--warm-white);
+  padding: 8rem 0;
+  position: relative;
+  overflow: hidden;
+}
+.about-bg {
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse 60% 50% at 0% 50%, rgba(196,144,106,0.07) 0%, transparent 60%),
+    radial-gradient(ellipse 40% 40% at 100% 20%, rgba(212,160,154,0.1) 0%, transparent 60%);
+  pointer-events: none;
+}
+.about-split {
+  display: grid;
+  grid-template-columns: 420px 1fr;
+  gap: 6rem;
+  align-items: start;
+}
+.about-photo-col { position: relative; }
+.about-photo-wrap { position: relative; }
+.about-photo {
+  width: 100%;
+  aspect-ratio: 3/4;
+  object-fit: cover;
+  object-position: center top;
+  display: block;
+  filter: saturate(0.9);
+}
+.about-photo-badge {
+  position: absolute;
+  bottom: -1.2rem; right: -1.2rem;
+  background: var(--rosegold);
+  padding: 0.9rem 1.2rem;
+  display: flex; align-items: center; gap: 0.5rem;
+}
+.badge-icon { color: var(--warm-white); font-size: 0.9rem; }
+.badge-text {
+  font-size: 0.62rem; font-weight: 700;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--warm-white);
+}
+.about-cert-strip {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 2.5rem;
+  padding: 1.2rem 1.5rem;
+  background: var(--sand);
+  border: 1px solid var(--divider);
+}
+.cert-item { text-align: center; }
+.cert-val {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.4rem; color: var(--rosegold); line-height: 1;
+}
+.cert-label {
+  font-size: 0.55rem; letter-spacing: 0.1em;
+  text-transform: uppercase; color: var(--taupe-soft);
+  margin-top: 0.2rem; line-height: 1.3;
+}
+.cert-divider {
+  width: 1px; height: 2.5rem;
+  background: var(--divider);
+}
+.about-headline {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(2rem, 3.2vw, 2.8rem);
+  font-weight: 600; line-height: 1.15;
+  color: var(--taupe); margin-bottom: 2rem;
+}
+.ah-gold { color: var(--rosegold); font-style: italic; }
+.about-story { display: flex; flex-direction: column; gap: 1rem; margin-bottom: 2rem; }
+.about-story p {
+  font-size: 0.95rem; line-height: 1.85;
+  color: rgba(106,74,74,0.75);
+}
+.about-story strong { color: var(--rosegold-dark); font-weight: 600; }
+.about-story em { font-style: italic; color: var(--taupe); }
+.about-tags {
+  display: flex; flex-wrap: wrap; gap: 0.5rem;
+  margin-bottom: 2rem;
+}
+.about-tag {
+  font-size: 0.62rem; font-weight: 700;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--rosegold-dark);
+  background: rgba(196,144,106,0.1);
+  border: 1px solid rgba(196,144,106,0.25);
+  padding: 0.35rem 0.8rem;
+  transition: all 0.3s;
+}
+.about-tag:hover {
+  background: rgba(196,144,106,0.2);
+  border-color: var(--rosegold);
+}
+.about-quote {
+  border-left: 3px solid var(--rosegold);
+  padding: 1.2rem 1.5rem;
+  background: rgba(196,144,106,0.06);
+}
+.about-quote p {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.15rem; font-style: italic;
+  line-height: 1.6; color: var(--taupe);
+  margin-bottom: 0.6rem;
+}
+.about-quote cite {
+  font-style: normal; font-size: 0.62rem;
+  letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--rosegold);
+}
+@media (max-width: 800px) {
+  .about-split { grid-template-columns: 1fr; gap: 3rem; }
+  .about-photo-wrap { max-width: 320px; margin: 0 auto; }
+  .about-cert-strip { gap: 1rem; }
+}
+</style>
+
+<!-- ══════════════════════════════════════
+     SECTION 2 — PAIN
+══════════════════════════════════════ -->
+<section class="pain">
+  <div class="pain-watermark" aria-hidden="true">BASTA</div>
+  <div class="section-inner">
+    <div class="eyebrow reveal">Il momento della verità</div>
+    <h2 class="pain-headline reveal">
+      Quante volte hai detto<br>
+      <em>"Da lunedì cambio tutto"</em><br>
+      — e il lunedì è diventato un anno?
+    </h2>
+
+    <div class="pain-grid reveal">
+      <div class="pain-card">
+        <div class="pain-icon">🪞</div>
+        <div class="pain-card-text">
+          <strong>Ti guardi allo specchio</strong>
+          e non riconosci più quella versione di te che aveva sogni, energie, voglia di costruire qualcosa di suo.
+        </div>
+      </div>
+      <div class="pain-card">
+        <div class="pain-icon">💸</div>
+        <div class="pain-card-text">
+          <strong>Dipendenza economica</strong>
+          da qualcuno o da qualcosa. Ogni fine mese la stessa ansia. La sensazione che i soldi non siano mai "tuoi davvero".
+        </div>
+      </div>
+      <div class="pain-card">
+        <div class="pain-icon">📚</div>
+        <div class="pain-card-text">
+          <strong>Hai già provato corsi</strong>
+          guide, video su YouTube, group challenge su Telegram. Tanti contenuti, zero risultati concreti. E ora ti chiedi se il problema sei tu.
+        </div>
+      </div>
+      <div class="pain-card">
+        <div class="pain-icon">😶</div>
+        <div class="pain-card-text">
+          <strong>Paura del giudizio</strong>
+          della famiglia, del partner, delle amiche. "Ma chi ti credi di essere?" è la frase che senti anche quando non viene detta.
+        </div>
+      </div>
+      <div class="pain-card">
+        <div class="pain-icon">🌀</div>
+        <div class="pain-card-text">
+          <strong>Non sai da dove iniziare</strong>
+          Tutto sembra troppo complicato, troppo tecnico, troppo costoso. Il digitale sembra fatto per gli altri — non per te.
+        </div>
+      </div>
+      <div class="pain-card">
+        <div class="pain-icon">⏳</div>
+        <div class="pain-card-text">
+          <strong>Il tempo passa</strong>
+          e la versione di te che volevi diventare si allontana ogni giorno di più. Mentre aspetti "il momento giusto" che non arriva mai.
+        </div>
+      </div>
+    </div>
+
+    <div class="pain-quote reveal">
+      <p>"Il problema non è che non sei capace. Il problema è che nessuno ti ha ancora dato il metodo giusto, nel linguaggio giusto, con il supporto giusto."</p>
+      <cite>— Principio fondante del Metodo UNFUCKWITHABLE</cite>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     SECTION 3 — REFRAME
+══════════════════════════════════════ -->
+<section class="reframe">
+  <div class="section-inner">
+    <div class="eyebrow reveal">La svolta che stai cercando</div>
+    <div class="reframe-split">
+      <div>
+        <h2 class="reframe-headline reveal">
+          <span class="rh-taupe">Non sei<br>partita</span><br>
+          <span class="rh-gold">in ritardo.</span><br>
+          <span class="rh-taupe">Stai partendo<br>ora.</span>
+        </h2>
+        <p class="reframe-body reveal">
+          Ogni donna che oggi ha una vita digitale libera e un'entrata indipendente
+          <strong>è partita esattamente da dove sei tu adesso.</strong>
+          Con la stessa paura. Gli stessi dubbi. Le stesse notti a chiedersi "ma ce la faccio davvero?"
+        </p>
+        <p class="reframe-body reveal">
+          La differenza non era il talento. Non era la fortuna. Era avere
+          <strong>qualcuno che le tenesse la mano nel momento giusto</strong>,
+          con strumenti concreti e un percorso che non lasciasse niente al caso.
+        </p>
+        <ul class="reframe-steps reveal">
+          <li class="reframe-step">
+            <span class="step-n">01</span>
+            <span>Prima si lavora su <strong>chi sei</strong> — la tua mente è il tuo asset più potente</span>
+          </li>
+          <li class="reframe-step">
+            <span class="step-n">02</span>
+            <span>Poi si costruisce il tuo <strong>sistema digitale</strong> — step by step, senza paroloni tecnici</span>
+          </li>
+          <li class="reframe-step">
+            <span class="step-n">03</span>
+            <span>Infine arrivano i <strong>risultati reali</strong> — in 90 giorni, misurabili, tuoi</span>
+          </li>
+        </ul>
+      </div>
+
+      <div class="reveal">
+        <div class="quote-card">
+          <p class="qt">"Non sapevo da dove iniziare e avevo mille paure. Quello che ho trovato nel percorso non era solo una guida pratica — era qualcuno che credeva in me prima ancora che ci credessi io. Questo cambia tutto."</p>
+          <div class="qa">— S.M., 34 anni · Lazio</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     SECTION 4 — LEAD MAGNET + FORM
+══════════════════════════════════════ -->
+<section class="gift" id="guida">
+  <div class="gift-watermark" aria-hidden="true">FREE</div>
+  <div class="section-inner">
+    <div class="eyebrow reveal">Per te, gratis, oggi</div>
+    <h2 class="gift-headline reveal" id="cosa-trovi">
+      3 Guide Gratuite.<br>Una per ogni<br>tua esigenza.
+    </h2>
+    <p class="gift-sub reveal">
+      <em>Fai il quiz gratuito — scopri quale percorso fa per te e ricevi la guida personalizzata sul tuo blocco reale.</em>
+    </p>
+
+    <div class="gift-grid reveal">
+      <div class="gift-card">
+        <div class="gift-icon">🌱</div>
+        <div class="gift-title">Riparto da Me</div>
+        <div class="gift-desc">Le 4 chiavi per rimettere te stessa al centro — emozioni, tempo, autostima e identità. Per chi vuole ritrovarsi prima di costruire.</div>
+      </div>
+      <div class="gift-card">
+        <div class="gift-icon">💼</div>
+        <div class="gift-title">Da Zero a Indipendente</div>
+        <div class="gift-desc">Le 4 fondamenta per costruire un business che ti rappresenta — Ikigai, nicchia, offerta e primi passi concreti.</div>
+      </div>
+      <div class="gift-card">
+        <div class="gift-icon">💻</div>
+        <div class="gift-title">Digitale Senza Paura</div>
+        <div class="gift-desc">Le 4 basi del mondo online — social, algoritmi, AI e profilo Instagram — spiegate in modo semplice e immediato.</div>
+      </div>
+    </div>
+
+    <div class="gift-cta reveal">
+      <p class="gift-cta-text">Il quiz capisce chi sei e ti assegna la guida giusta — in meno di 2 minuti.</p>
+      <a href="#quiz" class="btn-primary" style="display:inline-flex;margin:0 auto;">✦ Fai il quiz e scopri la tua guida gratuita</a>
+      <p class="gift-cta-note">100% gratuito · Nessuno spam · Nessun impegno</p>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     SECTION 5 — TESTIMONIALS
+══════════════════════════════════════ -->
+<section class="testimonials" id="testimonials">
+  <div class="section-inner">
+    <div class="eyebrow reveal">Loro ci credevano poco. Poi è successo.</div>
+    <h2 class="testi-headline reveal">
+      Non sono storie<br>
+      <em>straordinarie.</em><br>
+      Sono la tua storia<br>— in anticipo.
+    </h2>
+
+    <div class="testi-grid reveal">
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-quote">"Avevo 38 anni, un lavoro fisso che odiavo e la certezza di non saper fare niente di speciale. Emanuela mi ha aiutata a capire che quello che sapevo fare era già abbastanza — mancava solo il modo giusto per trasformarlo in qualcosa di mio. Oggi lavoro da casa, gestisco i miei orari e guadagno più di prima."</p>
+        <div class="testi-name">M.R.</div>
+        <div class="testi-role">Ex impiegata · ora consulente freelance · Latina</div>
+        <div class="testi-badge">✦ Percorso: Da Zero a Indipendente</div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-quote">"La cosa che mi ha colpito di più? Non mi ha dato un metodo preconfezionato. Ha ascoltato la mia storia — davvero — e ha costruito un percorso intorno a me. Per la prima volta mi sono sentita vista, non un numero in un corso online. Questo fa tutta la differenza."</p>
+        <div class="testi-name">F.D.</div>
+        <div class="testi-role">Mamma · Aprilia (LT)</div>
+        <div class="testi-badge">✦ Percorso: Riparto da Me</div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-quote">"Avevo paura del digitale — mi sembrava un mondo per giovani e per chi è bravo con la tecnologia. Emanuela me lo ha spiegato in modo così semplice e concreto che in poche settimane avevo già il mio profilo Instagram attivo, i miei contenuti e i miei primi contatti. Senza panico."</p>
+        <div class="testi-name">S.C.</div>
+        <div class="testi-role">Artigiana · Roma</div>
+        <div class="testi-badge">✦ Percorso: Digitale Senza Paura</div>
+      </div>
+    </div>
+
+    <div class="trust-bar reveal">
+      <div class="trust-item">
+        <div class="trust-val">3</div>
+        <div class="trust-label">percorsi su misura — Mindset · Business · Digitale</div>
+      </div>
+      <div class="trust-item">
+        <div class="trust-val">ICF</div>
+        <div class="trust-label">Coach certificata Level 2 · AICP · 144h di formazione</div>
+      </div>
+      <div class="trust-item">
+        <div class="trust-val">0€</div>
+        <div class="trust-label">per iniziare — guida gratuita personalizzata dal quiz</div>
+      </div>
+      <div class="trust-item">
+        <div class="trust-val">1:1</div>
+        <div class="trust-label">supporto diretto — nessun corso registrato, solo te e me</div>
+      </div>
+    </div>
+
+    <div class="testi-nudge reveal">
+      <p>Vuoi essere la prossima storia da raccontare?</p>
+      <span class="testi-arrow">↓</span>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     SECTION 6 — METHOD
+══════════════════════════════════════ -->
+<section class="method">
+  <div class="method-watermark" aria-hidden="true">METHOD</div>
+  <div class="section-inner">
+    <div class="eyebrow reveal">Il metodo UNFUCKWITHABLE</div>
+    <h2 class="method-headline reveal">
+      Non è un corso.<br>
+      È un sistema di trasformazione<br>
+      <em>costruito su chi sei tu.</em>
+    </h2>
+
+    <div class="method-steps reveal">
+      <div class="method-step">
+        <div class="step-big-num">01</div>
+        <div class="step-title">Riparto da Me</div>
+        <p class="step-desc">Nessun risultato esterno regge su fondamenta di paura. Prima lavoriamo su chi sei — autostima, emozioni, identità, gestione del tempo. La tua mente è il tuo asset più potente, e si allena.</p>
+      </div>
+      <div class="method-step">
+        <div class="step-big-num">02</div>
+        <div class="step-title">Da Zero a Indipendente</div>
+        <p class="step-desc">Costruiamo insieme il tuo business — nicchia, offerta, brand identity, strategia. Che tu parta da zero o voglia far crescere quello che hai, ti do un sistema concreto e tutto tuo.</p>
+      </div>
+      <div class="method-step">
+        <div class="step-big-num">03</div>
+        <div class="step-title">Digitale Senza Paura</div>
+        <p class="step-desc">Social, AI, copywriting, automazioni — te lo insegno in italiano semplice, passo dopo passo. Senza termini tecnici inutili. Senza farti sentire stupida. Con strumenti gratuiti o quasi.</p>
+      </div>
+    </div>
+
+    <div class="method-proof reveal">
+      <p>"Ogni donna che entra nel programma porta con sé una storia diversa. Ogni donna che esce porta con sé risultati concreti."</p>
+      <div class="method-btns">
+        <a href="#testimonials" class="btn-ghost-warm">Leggi le storie →</a>
+        <a href="#quiz" class="btn-ghost-warm">Scopri come iniziare →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════
+     SECTION 6B — QUIZ FUNNEL
+══════════════════════════════════════ -->
+<section class="quiz-section" id="quiz">
+  <div class="quiz-section-inner">
+    <div class="eyebrow reveal" style="justify-content:center;margin-bottom:0.5rem;">Scopri il tuo profilo</div>
+    <h2 class="quiz-title reveal">
+      Cosa ti blocca davvero?<br>
+      <em>Scoprilo in 2 minuti.</em>
+    </h2>
+    <p class="quiz-subtitle reveal">Rispondi a 5 domande e ricevi una guida gratuita personalizzata sul tuo blocco reale.</p>
+    <div id="quiz-root"></div>
+  </div>
+</section>
+
+<style>
+.quiz-section {
+  background: var(--sand);
+  padding: 6rem 0;
+  position: relative;
+  overflow: hidden;
+}
+.quiz-section::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 1px;
+  background: linear-gradient(90deg, transparent, var(--rosegold), transparent);
+}
+.quiz-section-inner {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+.quiz-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(2rem, 3.5vw, 3rem);
+  font-weight: 600; line-height: 1.2;
+  color: var(--taupe);
+  text-align: center;
+  margin-bottom: 1rem;
+}
+.quiz-title em { color: var(--rosegold); font-style: italic; }
+.quiz-subtitle {
+  font-size: 0.95rem;
+  color: var(--taupe-soft);
+  text-align: center;
+  margin-bottom: 2.5rem;
+  line-height: 1.6;
+}
+#quiz-root .hero-bg, #quiz-root > div > div[style*="fixed"] { display: none !important; }
+#quiz-root > div {
+  min-height: unset !important;
+  padding: 0 !important;
+  background: transparent !important;
+}
+</style>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.2/babel.min.js"></script>
+<script type="text/babel">
+const { useState, useEffect, useRef } = React;
+
+const { useState, useEffect, useRef } = React;
 
 
 const COLORS = {
@@ -935,8 +2290,165 @@ function QuizFunnel() {
   );
 }
 
-    const root = ReactDOM.createRoot(document.getElementById('root'));
-    root.render(<QuizFunnel />);
-  </script>
+const quizRoot = ReactDOM.createRoot(document.getElementById('quiz-root'));
+quizRoot.render(<QuizFunnel />);
+</script>
+
+<!-- ══════════════════════════════════════
+     SECTION 7 — OFFER
+══════════════════════════════════════ -->
+<section class="offer" id="offerta">
+  <div class="section-inner">
+    <div class="offer-split">
+
+      <!-- Left: free call -->
+      <div>
+        <span class="offer-tag reveal">Pronta per il passo successivo?</span>
+        <h2 class="offer-headline reveal">
+          Inizia da<br>
+          <span class="og">30 minuti</span><br>
+          gratuiti.
+        </h2>
+        <p class="offer-body reveal">
+          Prima di qualsiasi investimento, voglio conoscerti. Una <strong>sessione di scoperta gratuita</strong>, solo io e te: parliamo di dove sei, dove vuoi andare, e se posso davvero aiutarti.
+        </p>
+        <p class="offer-body reveal">
+          <strong>Non vendo a tutte. Scelgo con cura.</strong> Se c'è un fit reale, ti dico esattamente come possiamo lavorare insieme. Se non c'è, ti do comunque qualcosa di utile da portare a casa.
+        </p>
+        <ul class="check-list reveal">
+          <li><span class="chk">✓</span> Nessun impegno economico</li>
+          <li><span class="chk">✓</span> Analisi del tuo punto di partenza reale</li>
+          <li><span class="chk">✓</span> Una prima indicazione sul percorso più adatto a te</li>
+          <li><span class="chk">✓</span> Risposta alle tue domande più urgenti</li>
+          <li><span class="chk">✓</span> Onestà totale — anche se la risposta è "non fa per te"</li>
+        </ul>
+        <a href="https://calendly.com/msbcoaching26" target="_blank" class="btn-primary reveal">Prenota la tua call gratuita →</a>
+      </div>
+
+      <!-- Right: full program card -->
+      <div class="offer-card reveal">
+        <div class="offer-card-label">✦ UNFUCKWITHABLE 360° — Il percorso completo</div>
+        <p class="offer-card-title">
+          "Mindset · Business · Digitale. Tre mesi di trasformazione completa con il mio supporto diretto — dentro e fuori."
+        </p>
+        <div class="urgency-strip">
+          <div class="urgency-dot"></div>
+          <span class="urgency-txt">Posti limitati ogni mese — lavoro solo con un piccolo gruppo</span>
+        </div>
+        <ul class="check-list" style="margin-bottom:1.5rem;">
+          <li><span class="chk">✓</span> 12 sessioni 1:1 da 1h — una a settimana per 3 mesi</li>
+          <li><span class="chk">✓</span> Tutti e 3 i percorsi inclusi: Mindset · Business · Digitale</li>
+          <li><span class="chk">✓</span> PDF, workbook e materiali pratici per ogni percorso</li>
+          <li><span class="chk">✓</span> Supporto WhatsApp diretto con Emanuela</li>
+          <li><span class="chk">✓</span> Gruppo privato esclusivo + revisione profilo Instagram</li>
+        </ul>
+        <div style="text-align:center;margin-bottom:1.5rem;">
+          <div style="font-size:0.65rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--taupe-soft);margin-bottom:0.4rem;">Investimento</div>
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:2.2rem;color:var(--rosegold);line-height:1;">€2.197</div>
+          <div style="font-size:0.7rem;color:var(--taupe-soft);margin-top:0.2rem;">oppure 3 rate da €899 · pagamento unico risparmi €300</div>
+        </div>
+        <a href="https://calendly.com/msbcoaching26" target="_blank" class="btn-primary" style="width:100%;justify-content:center;">Prenota la tua call gratuita →</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     FINAL CTA
+══════════════════════════════════════ -->
+<section class="final">
+  <div class="section-inner">
+    <h2 class="final-headline reveal">
+      La tua vita<br>
+      <span class="fg">non può</span><br>
+      aspettare<br>ancora.
+    </h2>
+    <p class="final-sub reveal">
+      Non lunedì. Non dopo le ferie. Non quando ti senti pronta.<br>
+      <em>Pronta si diventa — non si aspetta di esserlo.</em>
+    </p>
+    <a href="#quiz" class="btn-primary reveal" style="margin:0 auto;display:inline-flex;">
+      ✦ Scopri il tuo profilo gratis
+    </a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Unfuckwithable®</div>
+  <div class="footer-links">
+    <a href="#">Privacy Policy</a>
+    <a href="#">Cookie</a>
+    <a href="https://calendly.com/msbcoaching26" target="_blank">Prenota una Call</a>
+    <a href="https://instagram.com/unfuckwithable" target="_blank">Instagram</a>
+    <a href="https://wa.me/393518332521" target="_blank">WhatsApp</a>
+  </div>
+</footer>
+
+<script>
+// ── Smooth scroll for all anchor links ──
+document.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll('a[href^="#"]').forEach(link => {
+    link.addEventListener('click', function(e) {
+      const target = document.querySelector(this.getAttribute('href'));
+      if (target) {
+        e.preventDefault();
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+  });
+});
+
+// ── Scroll reveal ──
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+      observer.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// ── Hero stagger on load ──
+window.addEventListener('load', () => {
+  document.querySelectorAll('.hero .reveal').forEach((el, i) => {
+    setTimeout(() => el.classList.add('visible'), 180 + i * 170);
+  });
+});
+
+// Form handled via quiz funnel
+</script>
+
+<!-- WHATSAPP FLOATING BUTTON -->
+<a href="https://wa.me/393518332521" target="_blank" class="whatsapp-float" title="Scrivimi su WhatsApp">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" width="28" height="28">
+    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+  </svg>
+</a>
+
+<style>
+.whatsapp-float {
+  position: fixed;
+  bottom: 5rem;
+  right: 1.25rem;
+  width: 52px;
+  height: 52px;
+  background: #25D366;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 20px rgba(37,211,102,0.4);
+  z-index: 99;
+  transition: transform 0.3s, box-shadow 0.3s;
+  text-decoration: none;
+}
+.whatsapp-float:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 28px rgba(37,211,102,0.5);
+}
+</style>
 </body>
 </html>
