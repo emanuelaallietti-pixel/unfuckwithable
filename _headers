@@ -1,0 +1,6 @@
+/*
+  Access-Control-Allow-Origin: *
+  Access-Control-Allow-Methods: GET, POST, OPTIONS
+  Access-Control-Allow-Headers: Content-Type, Authorization, anthropic-version, x-api-key
+  Content-Security-Policy: default-src * 'unsafe-inline' 'unsafe-eval' data: blob:;
+  X-Frame-Options: SAMEORIGIN
