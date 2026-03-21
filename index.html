@@ -916,7 +916,7 @@ footer {
       <!-- Left: photo -->
       <div class="about-photo-col reveal">
         <div class="about-photo-wrap">
-          <img src="https://drive.google.com/uc?export=view&id=1nKSS80fHnjLdusb2LJudf0fudo0rP3KQ" alt="Emanuela Allietti — Coach Professionista" class="about-photo" onerror="this.style.background='var(--blush)';this.style.minHeight='400px'" referrerpolicy="no-referrer" crossorigin="anonymous" />
+          <img src="https://i.ibb.co/b5CvKJQ0/hf-20260321-155713-a29cf4ab-a192-4f16-9e4f-7d932cc9d9f7.png" alt="Emanuela Allietti — Coach Professionista" class="about-photo" />
           <div class="about-photo-badge">
             <span class="badge-icon">✦</span>
             <span class="badge-text">Coach Professionista Certificata</span>
@@ -1002,6 +1002,31 @@ footer {
   gap: 6rem;
   align-items: start;
 }
+
+.about-photo-placeholder {
+  width: 100%;
+  aspect-ratio: 3/4;
+  background: linear-gradient(135deg, var(--blush) 0%, var(--sand) 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--divider);
+}
+.about-initials {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 5rem;
+  color: var(--rosegold);
+  letter-spacing: 0.1em;
+  line-height: 1;
+}
+.about-photo-note {
+  font-size: 0.75rem;
+  color: var(--taupe-soft);
+  margin-top: 0.5rem;
+  letter-spacing: 0.1em;
+}
+
 .about-photo-col { position: relative; }
 .about-photo-wrap { position: relative; }
 .about-photo {
@@ -1248,7 +1273,6 @@ footer {
         <div class="gift-icon">💻</div>
         <div class="gift-title">Digitale Senza Paura <span style="font-size:0.7em;color:var(--taupe-soft);font-weight:400;">(Formazione Digitale)</span></div>
         <div class="gift-desc">Le 4 basi del mondo online — social, algoritmi, AI e profilo Instagram — spiegate in modo semplice e immediato.</div>
-        <a href="https://drive.google.com/uc?export=download&id=1G-oLz7EYnQe9GMjEw1xde4IPaiuIsfAu" target="_blank" style="display:inline-block;margin-top:0.75rem;font-size:0.7rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--rosegold);text-decoration:none;">Scarica gratis →</a>
       </div>
     </div>
 
@@ -1314,10 +1338,52 @@ footer {
       </div>
     </div>
 
+    <!-- EXTRA TESTIMONIALS -->
+    <div id="altre-storie" class="altre-storie-wrap reveal" style="display:none;">
+      <div class="testi-grid" style="margin-top:1.5px;">
+        <div class="testi-card">
+          <div class="testi-stars">★★★★★</div>
+          <p class="testi-quote">"Prima di iniziare questo percorso non riuscivo a dire no a nessuno. Mettevo sempre tutti davanti a me — al lavoro, in famiglia, ovunque. Oggi so chi sono, so cosa voglio e so come chiederlo. Non sono diventata egoista — sono diventata intera."</p>
+          <div class="testi-name">L.B.</div>
+          <div class="testi-role">Infermiera · 41 anni · Frosinone</div>
+          <div class="testi-badge">✦ Percorso: Riparto da Me · da invisibile a presente</div>
+        </div>
+        <div class="testi-card">
+          <div class="testi-stars">★★★★★</div>
+          <p class="testi-quote">"Avevo una relazione tossica da 7 anni. Non riuscivo ad uscirne perché non credevo di meritare di meglio. Il lavoro su me stessa con Emanuela mi ha dato gli strumenti per riconoscere il mio valore — e il coraggio di scegliermi. Oggi sono libera. E finalmente felice."</p>
+          <div class="testi-name">V.C.</div>
+          <div class="testi-role">Commessa · 34 anni · Napoli</div>
+          <div class="testi-badge">✦ Percorso: Riparto da Me · da insicura a intoccabile</div>
+        </div>
+        <div class="testi-card">
+          <div class="testi-stars">★★★★★</div>
+          <p class="testi-quote">"Mi vergognavo di me stessa. Del mio corpo, della mia voce, delle mie idee. Oggi non chiedo più scusa per esistere. Ho iniziato a parlare in pubblico, a postare online, a dire la mia. La differenza? Ho smesso di aspettare il permesso degli altri per essere me stessa."</p>
+          <div class="testi-name">G.M.</div>
+          <div class="testi-role">Impiegata · 29 anni · Roma</div>
+          <div class="testi-badge">✦ Percorso: Riparto da Me · da silenziosa a indomabile</div>
+        </div>
+      </div>
+    </div>
+
     <div class="testi-nudge reveal">
       <p>Vuoi essere la prossima storia da raccontare?</p>
+      <button onclick="toggleStorie()" id="btn-storie" style="background:none;border:1px solid rgba(196,144,106,0.4);color:var(--rosegold);font-size:0.7rem;letter-spacing:0.14em;text-transform:uppercase;padding:0.7rem 1.5rem;cursor:pointer;margin-top:0.75rem;transition:all 0.3s;font-family:'DM Sans',sans-serif;">Leggi le altre storie →</button>
       <span class="testi-arrow">↓</span>
     </div>
+
+    <script>
+    function toggleStorie() {
+      var el = document.getElementById('altre-storie');
+      var btn = document.getElementById('btn-storie');
+      if (el.style.display === 'none') {
+        el.style.display = 'block';
+        btn.textContent = 'Nascondi le storie ↑';
+      } else {
+        el.style.display = 'none';
+        btn.textContent = 'Leggi le altre storie →';
+      }
+    }
+    </script>
   </div>
 </section>
 
@@ -1724,32 +1790,45 @@ footer {
 
   var steps = [
     {
-      id: 1, label: "CHI SEI OGGI", title: "Dove ti trovi in questo momento?",
-      subtitle: "Sii onesta con te stessa — è da qui che inizia tutto.",
+      id: 1, label: "LA TUA URGENZA", 
+      title: "Quale urgenza senti di andare a cambiare nella tua vita adesso?",
+      subtitle: "Scegli quella che senti più forte in questo momento.",
+      type: "single", field: "urgenza",
+      options: [
+        { v: "relazioni", t: "Le mie relazioni — voglio migliorare i miei rapporti con gli altri o uscire da situazioni tossiche" },
+        { v: "economia", t: "La mia situazione economica — voglio indipendenza e sicurezza finanziaria" },
+        { v: "crescita", t: "La mia crescita personale — voglio ritrovare me stessa, la mia autostima e la mia direzione" },
+        { v: "lavoro", t: "Il mio lavoro — voglio cambiarlo, migliorarlo o costruire qualcosa di mio" }
+      ]
+    },
+    {
+      id: 2, label: "LA TUA SITUAZIONE",
+      title: "Qual è la tua attuale situazione?",
+      subtitle: "Questo ci aiuta a capire meglio il tuo punto di partenza.",
       type: "single", field: "situazione",
       options: [
-        { v: "zero", t: "Sono a zero — non so da dove iniziare ma voglio cambiare" },
-        { v: "dipendente", t: "Lavoro per qualcun altro e voglio costruire qualcosa di mio" },
-        { v: "inizio", t: "Ho già un'idea o un piccolo business ma sono bloccata" },
-        { v: "crescita", t: "Ho già un business ma voglio farlo crescere" },
-        { v: "mamma", t: "Sono mamma o casalinga e voglio una fonte di reddito mia" }
+        { v: "impiegata", t: "Sono impiegata o dipendente" },
+        { v: "casalinga", t: "Sono casalinga" },
+        { v: "mamma", t: "Sono mamma" },
+        { v: "studentessa", t: "Sono studentessa" },
+        { v: "disoccupata", t: "Sono disoccupata o in cerca di lavoro" },
+        { v: "freelance", t: "Lavoro già in proprio o come freelance" }
       ]
     },
     {
-      id: 2, label: "IL TUO SOGNO", title: "Cosa vuoi costruire davvero?",
-      subtitle: "Scegli tutto ciò che risuona con te.",
-      type: "multi", field: "obiettivi",
+      id: 3, label: "IL TUO SOGNO",
+      title: "Ti piacerebbe creare qualcosa di tuo?",
+      subtitle: "Sii onesta — non esiste risposta sbagliata.",
+      type: "single", field: "business",
       options: [
-        { v: "liberta", t: "Libertà — non dipendere da nessuno economicamente" },
-        { v: "ritrovare_me", t: "Ritrovare me stessa e capire cosa voglio dalla vita" },
-        { v: "business", t: "Un business mio che mi rappresenti e mi faccia guadagnare" },
-        { v: "digitale", t: "Imparare il digitale e usarlo per lavorare online" },
-        { v: "tempo", t: "Più tempo per me e per chi amo — lavorare meno, guadagnare di più" },
-        { v: "sicurezza", t: "Sicurezza economica — smettere di vivere nell'ansia del fine mese" }
+        { v: "si_da_zero", t: "Sì, vorrei creare un mio business da zero che mi porti un'entrata" },
+        { v: "si_extra", t: "Sì, vorrei un'entrata extra da affiancare al mio lavoro attuale" },
+        { v: "no_lavoro", t: "No, voglio migliorare e crescere nel mio lavoro attuale" },
+        { v: "no_personale", t: "No, per ora voglio lavorare solo su me stessa e sulla mia vita" }
       ]
     },
     {
-      id: 3, label: "I TUOI BLOCCHI", title: "Cosa ti blocca di più?",
+      id: 4, label: "I TUOI BLOCCHI", title: "Cosa ti blocca di più?",
       subtitle: "Questi sono i tuoi nemici reali. Nominarli è già metà battaglia.",
       type: "multi", field: "ostacoli",
       options: [
@@ -1762,7 +1841,7 @@ footer {
       ]
     },
     {
-      id: 4, label: "IL TUO IMPEGNO", title: "Quanto tempo sei disposta a dedicare al tuo cambiamento?",
+      id: 5, label: "IL TUO IMPEGNO", title: "Quanto tempo sei disposta a dedicare al tuo cambiamento?",
       subtitle: "Non esiste risposta giusta o sbagliata. Solo la tua verità.",
       type: "single", field: "impegno",
       options: [
@@ -1773,7 +1852,7 @@ footer {
       ]
     },
     {
-      id: 5, label: "I TUOI CONTATTI", title: "Dove ti mando il tuo percorso personalizzato?",
+      id: 6, label: "I TUOI CONTATTI", title: "Dove ti mando il tuo percorso personalizzato?",
       subtitle: "Niente spam. Solo valore. Promesso.",
       type: "contact", field: "contatti"
     }
@@ -1781,19 +1860,23 @@ footer {
 
   var state = {
     step: 0,
-    answers: { situazione: null, obiettivi: [], ostacoli: [], impegno: null, contatti: {} },
+    answers: { urgenza: null, situazione: null, business: null, obiettivi: [], ostacoli: [], impegno: null, contatti: {} },
     loading: false,
     result: null
   };
 
   function calcPercorso() {
     var s = { crescita: 0, business: 0, digitale: 0 };
-    var sitMap = { zero: [2,1,1], dipendente: [1,2,1], inizio: [0,2,2], crescita: [0,2,2], mamma: [2,2,1] };
-    var objMap = { liberta: [1,2,1], ritrovare_me: [3,0,0], business: [0,3,1], digitale: [0,1,3], tempo: [2,1,1], sicurezza: [1,2,1] };
+    // Urgenza mapping
+    var urgMap = { relazioni: [3,0,0], economia: [1,2,1], crescita: [3,0,0], lavoro: [1,2,1] };
+    var urg = urgMap[state.answers.urgenza];
+    if (urg) { s.crescita += urg[0]; s.business += urg[1]; s.digitale += urg[2]; }
+    // Business intent
+    var bizMap = { si_da_zero: [0,3,1], si_extra: [0,2,2], no_lavoro: [1,1,2], no_personale: [3,0,0] };
+    var biz = bizMap[state.answers.business];
+    if (biz) { s.crescita += biz[0]; s.business += biz[1]; s.digitale += biz[2]; }
+    // Ostacoli
     var obsMap = { autostima: [3,0,0], paura: [3,1,0], digitale: [0,1,3], idea: [1,3,0], tempo: [2,1,1], partenza: [2,2,1] };
-    var sit = sitMap[state.answers.situazione];
-    if (sit) { s.crescita += sit[0]; s.business += sit[1]; s.digitale += sit[2]; }
-    (state.answers.obiettivi||[]).forEach(function(o) { var m=objMap[o]; if(m){s.crescita+=m[0];s.business+=m[1];s.digitale+=m[2];} });
     (state.answers.ostacoli||[]).forEach(function(o) { var m=obsMap[o]; if(m){s.crescita+=m[0];s.business+=m[1];s.digitale+=m[2];} });
     return s.crescita >= s.business && s.crescita >= s.digitale ? 'crescita' : s.business >= s.digitale ? 'business' : 'digitale';
   }
@@ -1803,7 +1886,7 @@ footer {
     if (!st) return false;
     if (st.type === 'single') return !!state.answers[st.field];
     if (st.type === 'multi') return (state.answers[st.field]||[]).length > 0;
-    if (st.type === 'contact') return !!(state.answers.contatti.nome && state.answers.contatti.email);
+    if (st.type === 'contact') return !!(state.answers.contatti.nome && state.answers.contatti.cognome && state.answers.contatti.email);
     return false;
   }
 
@@ -1824,9 +1907,9 @@ footer {
     html += '<p class="q-subtitle">' + st.subtitle + '</p>';
     if (st.type === 'contact') {
       html += '<div class="q-options">';
-      html += '<div><label class="q-input-label">Il tuo nome</label><input class="q-input" id="qi-nome" type="text" placeholder="Come ti chiami?" value="' + (state.answers.contatti.nome||'') + '"></div>';
+      html += '<div><label class="q-input-label">Il tuo nome</label><input class="q-input" id="qi-nome" type="text" placeholder="Il tuo nome" value="' + (state.answers.contatti.nome||'') + '"></div>';
+      html += '<div><label class="q-input-label">Il tuo cognome</label><input class="q-input" id="qi-cognome" type="text" placeholder="Il tuo cognome" value="' + (state.answers.contatti.cognome||'') + '"></div>';
       html += '<div><label class="q-input-label">La tua email</label><input class="q-input" id="qi-email" type="email" placeholder="La tua email migliore" value="' + (state.answers.contatti.email||'') + '"></div>';
-      html += '<div><label class="q-input-label">Instagram (opzionale)</label><input class="q-input" id="qi-ig" type="text" placeholder="@handle" value="' + (state.answers.contatti.instagram||'') + '"></div>';
       html += '</div>';
     } else {
       html += '<div class="q-options">';
@@ -1840,7 +1923,7 @@ footer {
     }
     html += '<div class="q-nav">';
     html += state.step > 0 ? '<button class="q-back" id="q-back-btn">← Indietro</button>' : '<div></div>';
-    html += '<button class="q-next" id="q-next-btn" ' + (!canProceed()?'disabled':'') + '>' + (state.step === steps.length-1 ? 'Scopri il tuo profilo →' : 'Continua →') + '</button>';
+    html += '<button class="q-next" id="q-next-btn" ' + (!canProceed()?'disabled':'') + '>' + (state.step === steps.length-1 ? 'Scopri il tuo percorso →' : 'Continua →') + '</button>';
     html += '</div>';
     html += '<p class="q-footer">100% gratuito · Nessuno spam · Puoi cancellarti in qualsiasi momento</p>';
     app.innerHTML = html;
@@ -1858,12 +1941,12 @@ footer {
     var backBtn = document.getElementById('q-back-btn');
     if (backBtn) backBtn.addEventListener('click', function() { state.step--; render(); });
     if (st.type === 'contact') {
-      ['qi-nome','qi-email','qi-ig'].forEach(function(id) {
+      ['qi-nome','qi-cognome','qi-email'].forEach(function(id) {
         var el = document.getElementById(id);
         if (el) el.addEventListener('input', function() {
           state.answers.contatti.nome = document.getElementById('qi-nome').value;
+          state.answers.contatti.cognome = document.getElementById('qi-cognome').value;
           state.answers.contatti.email = document.getElementById('qi-email').value;
-          state.answers.contatti.instagram = document.getElementById('qi-ig').value;
           var nb = document.getElementById('q-next-btn');
           if(nb) nb.disabled = !canProceed();
         });
@@ -1925,7 +2008,7 @@ footer {
         timestamp: new Date().toISOString(),
         source: 'unfuckwithable_quiz',
         contatto: state.answers.contatti,
-        quiz: { situazione: state.answers.situazione, obiettivi: state.answers.obiettivi, ostacoli: state.answers.ostacoli, impegno: state.answers.impegno },
+        quiz: { urgenza: state.answers.urgenza, situazione: state.answers.situazione, business: state.answers.business, ostacoli: state.answers.ostacoli, impegno: state.answers.impegno },
         percorso_assegnato: percorso,
         percorso_nome: pInfo.nome
       })
@@ -2019,7 +2102,7 @@ footer {
             <span style="font-size:0.8rem;color:var(--taupe-soft);">valido solo nelle 48 ore successive alla call</span>
           </p>
         </div>
-        <a href="https://calendly.com/msbcoaching26" target="_blank" class="btn-primary" style="width:100%;justify-content:center;">✦ Scopri se sei tra le candidate →</a>
+        <a href="https://calendly.com/msbcoaching26" target="_blank" class="btn-primary" style="width:100%;justify-content:center;">✦ Scopri l'offerta — Entro 48 Ore →</a>
         <p style="text-align:center;font-size:0.62rem;color:var(--taupe-soft);margin-top:0.75rem;letter-spacing:0.08em;">Call gratuita · Nessun impegno · Posti limitati</p>
       </div>
 </section>
