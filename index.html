@@ -1039,10 +1039,11 @@ footer {
 }
 .about-photo-badge {
   position: absolute;
-  bottom: -1.2rem; right: -1.2rem;
+  bottom: -1rem; right: -1rem;
   background: var(--rosegold);
-  padding: 0.9rem 1.2rem;
+  padding: 0.7rem 1rem;
   display: flex; align-items: center; gap: 0.5rem;
+  z-index: 3;
 }
 .badge-icon { color: var(--warm-white); font-size: 0.9rem; }
 .badge-text {
@@ -1054,10 +1055,12 @@ footer {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: 2.5rem;
+  margin-top: 4rem;
   padding: 1.2rem 1.5rem;
   background: var(--sand);
   border: 1px solid var(--divider);
+  position: relative;
+  z-index: 2;
 }
 .cert-item { text-align: center; }
 .cert-val {
