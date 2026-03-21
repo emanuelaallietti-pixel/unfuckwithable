@@ -133,6 +133,7 @@ nav {
   position: relative; z-index: 10;
   padding: 2rem 4rem;
   display: flex; align-items: center; justify-content: space-between;
+  flex-wrap: wrap; gap: 0.5rem;
 }
 
 .logo {
@@ -188,7 +189,7 @@ nav {
 }
 .hero-sub strong { color: var(--rosegold-dark); font-style: normal; font-weight: 600; }
 
-.hero-ctas { display: flex; flex-direction: column; gap: 0.9rem; align-items: flex-start; }
+.hero-ctas { display: flex; flex-direction: column; gap: 0.9rem; align-items: flex-start; max-width: 340px; }
 
 .hero-ghost {
   font-size: 0.68rem; letter-spacing: 0.14em; text-transform: uppercase;
@@ -809,7 +810,7 @@ footer {
   font-size: 1.2rem; letter-spacing: 0.15em;
   color: var(--warm-white);
 }
-.footer-links { display: flex; gap: 2rem; }
+.footer-links { display: flex; gap: 1.5rem; flex-wrap: wrap; }
 .footer-links a {
   font-size: 0.62rem; letter-spacing: 0.12em;
   text-transform: uppercase; color: rgba(253,249,246,0.45);
@@ -818,21 +819,132 @@ footer {
 .footer-links a:hover { color: var(--warm-white); }
 
 /* ═══════════════════════════════════════════
-   RESPONSIVE
+   RESPONSIVE — TABLET (max 1024px)
 ═══════════════════════════════════════════ */
-@media (max-width: 800px) {
+@media (max-width: 1024px) {
+  .section-inner { padding: 0 2.5rem; }
+  .about-split { grid-template-columns: 340px 1fr; gap: 3rem; }
+  .reframe-split { gap: 3rem; }
+  .offer-split { gap: 3rem; }
+  .hero-content { padding: 2rem 2.5rem 3rem; }
+  nav { padding: 1.5rem 2.5rem; }
+  .hero-stats { padding: 1.5rem 2.5rem; }
+}
+
+/* ═══════════════════════════════════════════
+   RESPONSIVE — MOBILE (max 768px)
+═══════════════════════════════════════════ */
+@media (max-width: 768px) {
+  /* Global */
   nav, .hero-content, .hero-stats, .section-inner {
-    padding-left: 1.6rem; padding-right: 1.6rem;
+    padding-left: 1.2rem; padding-right: 1.2rem;
   }
-  .pain-grid, .gift-grid, .testi-grid, .method-steps { grid-template-columns: 1fr; }
-  .reframe-split, .offer-split { grid-template-columns: 1fr; gap: 3rem; }
+
+  /* Nav */
+  nav { padding: 1.2rem; }
+  .logo { font-size: 1.1rem; }
+  .nav-cta { font-size: 0.65rem; padding: 0.5rem 1rem; }
+
+  /* Hero */
+  .hero-content { padding: 1.5rem 1.2rem 2.5rem; }
+  .hero-headline { font-size: clamp(3.5rem, 15vw, 5rem); }
+  .hero-sub { font-size: 1rem; margin: 1rem 0 1.8rem; }
+  .hero-ctas { align-items: stretch; }
+  .hero-ctas .btn-primary { text-align: center; justify-content: center; }
+  .hero-stats { grid-template-columns: repeat(3,1fr); gap: 0; }
+  .stat { padding: 1rem 0.5rem 1rem 0; }
+  .stat-num { font-size: 2rem; }
+  .stat-label { font-size: 0.52rem; }
+
+  /* About */
+  .about-split { grid-template-columns: 1fr; gap: 2rem; }
+  .about-photo-wrap { max-width: 280px; margin: 0 auto; }
+  .about-cert-strip { flex-wrap: wrap; gap: 0.5rem; justify-content: center; }
+  .about-cert-strip .cert-divider { display: none; }
+  .cert-item { min-width: 70px; }
+  .about-headline { font-size: clamp(1.6rem, 5vw, 2.2rem); }
+  .about-tags { gap: 0.4rem; }
+  .about-tag { font-size: 0.58rem; padding: 0.3rem 0.6rem; }
+
+  /* Pain */
+  .pain { padding: 4rem 0; }
+  .pain-grid { grid-template-columns: 1fr; }
+  .pain-headline { font-size: clamp(1.6rem, 5vw, 2rem); }
+
+  /* Reframe */
+  .reframe { padding: 4rem 0; }
+  .reframe-split { grid-template-columns: 1fr; gap: 2rem; }
+  .reframe-headline { font-size: clamp(2rem, 8vw, 3rem); }
+
+  /* Gift */
+  .gift { padding: 4rem 0; }
+  .gift-grid { grid-template-columns: 1fr; }
+  .gift-headline { font-size: clamp(2rem, 8vw, 3.5rem); }
+
+  /* Testimonials */
+  .testimonials { padding: 4rem 0; }
+  .testi-grid { grid-template-columns: 1fr; }
+  .testi-headline { font-size: clamp(1.6rem, 5vw, 2rem); }
   .trust-bar { grid-template-columns: repeat(2,1fr); }
-  .hero-stats { grid-template-columns: repeat(3,1fr); }
+  .trust-item { padding: 0.75rem 0.5rem; }
+  .trust-val { font-size: 1.2rem; }
+  .trust-label { font-size: 0.55rem; }
+
+  /* Method */
+  .method { padding: 4rem 0; }
+  .method-steps { grid-template-columns: 1fr; }
   .method-step { padding: 0 0 2rem 0 !important; border-right: none !important; border-bottom: 1px solid rgba(253,249,246,0.2); }
   .method-step:last-child { border-bottom: none; padding-bottom: 0; }
-  .method-btns { flex-direction: column; align-items: center; }
-  footer { flex-direction: column; gap: 1.5rem; text-align: center; }
-  .footer-links { flex-wrap: wrap; justify-content: center; }
+  .method-btns { flex-direction: column; align-items: stretch; gap: 0.75rem; }
+  .method-btns a { text-align: center; justify-content: center; }
+  .method-headline { font-size: clamp(1.6rem, 5vw, 2rem); }
+
+  /* Quiz */
+  .quiz-section { padding: 3rem 0; }
+  .quiz-section-inner { padding: 0 1rem; }
+  #quiz-app { padding: 1.5rem; }
+  .q-title { font-size: 1.25rem; }
+
+  /* Garanzia */
+  .garanzia-inner { flex-direction: column; gap: 1rem; padding: 1.5rem; }
+  .garanzia-icon { font-size: 2rem; }
+  .garanzia-title { font-size: 1.1rem; }
+
+  /* Offer */
+  .offer { padding: 4rem 0; }
+  .offer-split { grid-template-columns: 1fr; gap: 2rem; }
+  .offer-headline { font-size: clamp(2rem, 8vw, 3rem); }
+  .offer-card { padding: 1.8rem; }
+
+  /* Final */
+  .final { padding: 4rem 0; }
+  .final-headline { font-size: clamp(2.5rem, 10vw, 5rem); }
+
+  /* Footer */
+  footer { flex-direction: column; gap: 1.2rem; text-align: center; padding: 2rem 1.2rem; }
+  .footer-logo { font-size: 1rem; }
+  .footer-links { flex-wrap: wrap; justify-content: center; gap: 1rem; }
+  .footer-links a { font-size: 0.6rem; }
+
+  /* Buttons */
+  .btn-primary { padding: 0.95rem 1.6rem; font-size: 0.72rem; }
+}
+
+/* ═══════════════════════════════════════════
+   RESPONSIVE — SMALL MOBILE (max 400px)
+═══════════════════════════════════════════ */
+@media (max-width: 400px) {
+  .hero-headline { font-size: clamp(3rem, 14vw, 4rem); }
+  .hero-stats { grid-template-columns: repeat(3,1fr); }
+  .stat-num { font-size: 1.6rem; }
+  .about-cert-strip { gap: 0.3rem; }
+  .cert-val { font-size: 1rem; }
+  .cert-label { font-size: 0.48rem; }
+  .section-inner { padding: 0 1rem; }
+  nav, .hero-content, .hero-stats { padding-left: 1rem; padding-right: 1rem; }
+  .offer-card { padding: 1.2rem; }
+  #quiz-app { padding: 1.2rem; border-radius: 12px; }
+  .q-option { padding: 0.75rem 0.875rem; font-size: 0.83rem; }
 }
 
 </style>
@@ -1056,7 +1168,7 @@ footer {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: 4rem;
+  margin-top: 1.5rem;
   padding: 1.2rem 1.5rem;
   background: var(--sand);
   border: 1px solid var(--divider);
