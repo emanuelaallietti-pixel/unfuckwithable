@@ -864,6 +864,9 @@ footer {
   .about-cert-strip .cert-divider { display: none; }
   .cert-item { min-width: 70px; }
   .about-headline { font-size: clamp(1.6rem, 5vw, 2.2rem); }
+  .about-content { padding-top: 0; }
+  .about-quote p { font-size: 1rem; }
+  .about-quote { padding: 1rem; }
   .about-tags { gap: 0.4rem; }
   .about-tag { font-size: 0.58rem; padding: 0.3rem 0.6rem; }
 
@@ -912,6 +915,14 @@ footer {
   .offer-body { font-size: 1rem; }
   .about-story p { font-size: 1rem; }
   .eyebrow { font-size: 0.68rem; }
+  .testi-quote { font-size: 0.95rem; }
+  .offer-card-title { font-size: 1.2rem; }
+  .gift-title { font-size: 0.82rem; }
+  .about-tag { font-size: 0.62rem; }
+  .garanzia-text { font-size: 0.92rem; }
+  .q-option { font-size: 0.9rem; }
+  .q-subtitle { font-size: 0.9rem; }
+  .q-section-text { font-size: 0.92rem; }
 
   /* Garanzia */
   .garanzia-inner { flex-direction: column; gap: 1rem; padding: 1.5rem; }
@@ -941,10 +952,15 @@ footer {
 /* ═══════════════════════════════════════════
    RESPONSIVE — SMALL MOBILE (max 400px)
 ═══════════════════════════════════════════ */
+@media (max-width: 500px) {
+  .gift-grid { grid-template-columns: 1fr; }
+}
+
 @media (max-width: 400px) {
   .hero-headline { font-size: clamp(3rem, 14vw, 4rem); }
   .hero-stats { grid-template-columns: repeat(3,1fr); }
-  .stat-num { font-size: 1.6rem; }
+  .stat-num { font-size: 1.4rem; }
+  .stat-label { font-size: 0.5rem; letter-spacing: 0.05em; }
   .about-cert-strip { gap: 0.3rem; }
   .cert-val { font-size: 1rem; }
   .cert-label { font-size: 0.48rem; }
@@ -1936,7 +1952,8 @@ footer {
         { v: "mamma", t: "Sono mamma" },
         { v: "studentessa", t: "Sono studentessa" },
         { v: "disoccupata", t: "Sono disoccupata o in cerca di lavoro" },
-        { v: "freelance", t: "Lavoro già in proprio o come freelance" }
+        { v: "freelance", t: "Lavoro già in proprio o come freelance" },
+        { v: "pensionata", t: "Sono in pensione o in una fase di transizione e voglio reinventarmi" }
       ]
     },
     {
@@ -2093,7 +2110,7 @@ footer {
     var percorso = calcPercorso();
     var pInfo = PERCORSI[percorso];
     var nome = state.answers.contatti.nome || '';
-    var sitMap = { zero: "a zero, non sa da dove iniziare ma vuole cambiare", dipendente: "dipendente che vuole costruire qualcosa di suo", inizio: "ha già un'idea ma è bloccata", crescita: "ha già un business ma vuole farlo crescere", mamma: "mamma o casalinga che vuole una fonte di reddito propria" };
+    var sitMap = { zero: "a zero, non sa da dove iniziare ma vuole cambiare", dipendente: "dipendente che vuole costruire qualcosa di suo", inizio: "ha già un'idea ma è bloccata", crescita: "ha già un business ma vuole farlo crescere", mamma: "mamma o casalinga che vuole una fonte di reddito propria", pensionata: "in pensione o in transizione che vuole reinventarsi" };
     var impMap = { poco: "30 minuti al giorno", medio: "1 ora al giorno", tanto: "2-3 ore al giorno", tutto: "tutto il tempo necessario" };
     var prompt = 'Sei UNFUCKWITHABLE, brand di Life & Business Coaching per donne ambiziose fondato da Emanuela Allietti, Coach Professionista Certificata.\nIl tuo mantra: \"Fatto è meglio che perfetto.\"\nTono: diretto, caldo, potente — mai banale.\n\nDonna ha compilato il quiz:\n- CHI È: ' + (sitMap[state.answers.situazione]||state.answers.situazione) + '\n- VUOLE: ' + (state.answers.obiettivi||[]).join(', ') + '\n- BLOCCHI: ' + (state.answers.ostacoli||[]).join(', ') + '\n- IMPEGNO: ' + (impMap[state.answers.impegno]||state.answers.impegno) + '\n- PERCORSO: ' + pInfo.nome + '\n- NOME: ' + nome + '\n\nCrea profilo personalizzato in italiano. Rispondi SOLO JSON senza backtick:\n{"titolo":"3-5 parole potenti chi è lei ora","momento":"2-3 frasi situazione emotiva profonda — deve sentirsi vista","blocco":"1-2 frasi credenza limitante reale con verità che la libera","passi":["azione oggi","azione settimana","azione mindset","azione visibilità"],"spiegazione_percorso":"2-3 frasi perché questo percorso è giusto per lei","finale":"1-2 frasi chiusura potenti tono UNFUCKWITHABLE"}';
     fetch('https://corsproxy.io/?https://api.anthropic.com/v1/messages', {
@@ -2277,6 +2294,8 @@ footer {
     <a href="https://calendly.com/msbcoaching26" target="_blank">📅 Prenota una Call</a>
     <a href="https://www.iubenda.com/privacy-policy/unfuckwithable" target="_blank">Privacy Policy</a>
     <a href="https://www.iubenda.com/privacy-policy/unfuckwithable/cookie-policy" target="_blank">Cookie Policy</a>
+  
+    <a href="#" onclick="document.getElementById('terms-modal').style.display='block';return false;">Termini di Servizio</a>
   </div>
 </footer>
 
@@ -2328,6 +2347,12 @@ window.addEventListener('load', () => {
   font-size: 0.82rem;
   line-height: 1.5;
 ">
+<style>
+@media (max-width: 768px) {
+  #cookie-banner { flex-direction: column; gap: 1rem; padding: 1rem; font-size: 0.78rem; }
+  #cookie-banner p { font-size: 0.78rem; }
+}
+</style>
   <p style="margin:0; max-width: 700px; color: rgba(253,249,246,0.88);">
     🍪 Questo sito utilizza cookie tecnici per migliorare la tua esperienza.
     Continuando la navigazione accetti l'utilizzo dei cookie.
@@ -2372,6 +2397,70 @@ if (localStorage.getItem('cookie_consent')) {
   document.getElementById('cookie-banner').style.display = 'none';
 }
 </script>
+
+
+<!-- TERMINI DI SERVIZIO MODAL -->
+<div id="terms-modal" style="display:none; position:fixed; inset:0; z-index:10000; background:rgba(0,0,0,0.6); overflow-y:auto; padding:2rem 1rem;">
+  <div style="max-width:700px; margin:2rem auto; background:#fdf9f6; border-radius:12px; padding:2.5rem; position:relative; font-family:'DM Sans',sans-serif;">
+    <button onclick="document.getElementById('terms-modal').style.display='none'" style="position:absolute;top:1rem;right:1rem;background:none;border:none;font-size:1.5rem;cursor:pointer;color:#9a6b70;">✕</button>
+    
+    <div style="font-family:'Bebas Neue',sans-serif;font-size:1.6rem;letter-spacing:0.05em;color:#c4906a;margin-bottom:0.3rem;">UNFUCKWITHABLE</div>
+    <h2 style="font-family:'Cormorant Garamond',serif;font-size:1.6rem;color:#6b3e3e;margin-bottom:0.5rem;">Termini e Condizioni di Servizio</h2>
+    <p style="font-size:0.75rem;color:#9a6b70;margin-bottom:2rem;">Ultimo aggiornamento: Marzo 2026</p>
+
+    <div style="font-size:0.88rem;line-height:1.8;color:#5a3535;">
+
+      <h3 style="font-size:1rem;font-weight:700;color:#c4906a;margin:1.5rem 0 0.5rem;text-transform:uppercase;letter-spacing:0.1em;">1. Chi siamo</h3>
+      <p>UNFUCKWITHABLE è un servizio di Life & Business Coaching offerto da Emanuela Allietti, Coach Professionista Certificata. Per informazioni: <a href="mailto:msbcoaching26@gmail.com" style="color:#c4906a;">msbcoaching26@gmail.com</a></p>
+
+      <h3 style="font-size:1rem;font-weight:700;color:#c4906a;margin:1.5rem 0 0.5rem;text-transform:uppercase;letter-spacing:0.1em;">2. Servizi offerti</h3>
+      <p>UNFUCKWITHABLE offre percorsi di coaching individuale nelle seguenti aree:</p>
+      <ul style="margin:0.5rem 0 0.5rem 1.5rem;">
+        <li><strong>Riparto da Me</strong> — Crescita personale, autostima, gestione delle emozioni</li>
+        <li><strong>Da Zero a Indipendente</strong> — Business coaching, definizione offerta e nicchia</li>
+        <li><strong>Digitale Senza Paura</strong> — Formazione digitale, social media, strumenti online</li>
+        <li><strong>UNFUCKWITHABLE 360°</strong> — Percorso completo che include tutti e 3 i programmi</li>
+      </ul>
+      <p>I servizi vengono erogati esclusivamente in modalità online tramite videochiamate (Zoom, Google Meet o piattaforma concordata).</p>
+
+      <h3 style="font-size:1rem;font-weight:700;color:#c4906a;margin:1.5rem 0 0.5rem;text-transform:uppercase;letter-spacing:0.1em;">3. Prenotazione e pagamenti</h3>
+      <p>La prenotazione avviene tramite una <strong>call gratuita di 30 minuti</strong> attraverso il calendario online (Calendly). Durante la call vengono concordati: il percorso più adatto, il pacchetto scelto (Base, Medio o VIP) e le modalità di pagamento.</p>
+      <p>I pagamenti sono accettati tramite: bonifico bancario, PayPal o carta di credito. Le modalità specifiche vengono comunicate durante la call gratuita.</p>
+      <p>Il servizio inizia solo dopo la conferma del pagamento.</p>
+
+      <h3 style="font-size:1rem;font-weight:700;color:#c4906a;margin:1.5rem 0 0.5rem;text-transform:uppercase;letter-spacing:0.1em;">4. Diritto di recesso</h3>
+      <p>In conformità al D.Lgs. 206/2005 (Codice del Consumo), hai diritto di recedere dal contratto entro <strong>14 giorni</strong> dalla data di acquisto, senza fornire alcuna motivazione.</p>
+      <p>Per esercitare il diritto di recesso, invia una comunicazione scritta a: <a href="mailto:msbcoaching26@gmail.com" style="color:#c4906a;">msbcoaching26@gmail.com</a></p>
+      <p><strong>Nota:</strong> Il diritto di recesso decade se il servizio è già stato completamente erogato con il tuo esplicito consenso prima della scadenza dei 14 giorni.</p>
+
+      <h3 style="font-size:1rem;font-weight:700;color:#c4906a;margin:1.5rem 0 0.5rem;text-transform:uppercase;letter-spacing:0.1em;">5. Garanzia soddisfatta o rimborsata</h3>
+      <p>Offriamo una <strong>garanzia di rimborso entro 30 giorni</strong> dall'inizio del percorso. Se non sei soddisfatta per qualsiasi motivo entro i primi 30 giorni, rimborsiamo l'intero importo pagato entro 5 giorni lavorativi, senza domande.</p>
+      <p>Per richiedere il rimborso: <a href="mailto:msbcoaching26@gmail.com" style="color:#c4906a;">msbcoaching26@gmail.com</a></p>
+
+      <h3 style="font-size:1rem;font-weight:700;color:#c4906a;margin:1.5rem 0 0.5rem;text-transform:uppercase;letter-spacing:0.1em;">6. Limitazioni del servizio</h3>
+      <p>Il coaching non sostituisce trattamenti psicologici, psicoterapeutici o medici. Se stai attraversando una crisi emotiva grave, ti invitiamo a rivolgerti a professionisti della salute mentale.</p>
+      <p>I risultati del percorso dipendono dall'impegno attivo della cliente. Non garantiamo risultati economici specifici.</p>
+
+      <h3 style="font-size:1rem;font-weight:700;color:#c4906a;margin:1.5rem 0 0.5rem;text-transform:uppercase;letter-spacing:0.1em;">7. Proprietà intellettuale</h3>
+      <p>Tutti i materiali forniti durante il percorso (PDF, workbook, guide) sono di proprietà esclusiva di UNFUCKWITHABLE — Emanuela Allietti. È vietata la riproduzione, distribuzione o vendita senza autorizzazione scritta.</p>
+
+      <h3 style="font-size:1rem;font-weight:700;color:#c4906a;margin:1.5rem 0 0.5rem;text-transform:uppercase;letter-spacing:0.1em;">8. Privacy e dati personali</h3>
+      <p>I dati personali forniti attraverso il sito sono trattati nel rispetto del GDPR (Reg. UE 2016/679). Per maggiori informazioni consulta la nostra <a href="https://www.iubenda.com/privacy-policy/unfuckwithable" target="_blank" style="color:#c4906a;">Privacy Policy completa</a>.</p>
+
+      <h3 style="font-size:1rem;font-weight:700;color:#c4906a;margin:1.5rem 0 0.5rem;text-transform:uppercase;letter-spacing:0.1em;">9. Legge applicabile</h3>
+      <p>I presenti Termini sono regolati dalla legge italiana. Per qualsiasi controversia è competente il Foro di Latina.</p>
+
+      <h3 style="font-size:1rem;font-weight:700;color:#c4906a;margin:1.5rem 0 0.5rem;text-transform:uppercase;letter-spacing:0.1em;">10. Contatti</h3>
+      <p>Per qualsiasi domanda: <a href="mailto:msbcoaching26@gmail.com" style="color:#c4906a;">msbcoaching26@gmail.com</a><br>
+      WhatsApp: <a href="https://wa.me/393518332521" style="color:#c4906a;">+39 351 833 2521</a></p>
+
+    </div>
+
+    <div style="text-align:center;margin-top:2rem;">
+      <button onclick="document.getElementById('terms-modal').style.display='none'" style="background:#c4906a;color:white;border:none;padding:0.875rem 2.5rem;font-family:'DM Sans',sans-serif;font-size:0.8rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;cursor:pointer;border-radius:2px;">Ho capito, chiudi →</button>
+    </div>
+  </div>
+</div>
 
 </body>
 </html>
