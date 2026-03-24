@@ -9,6 +9,34 @@
   <meta property="og:description" content="Il metodo di coaching professionale per donne che vogliono costruire libertà, indipendenza e una vita che le rappresenta.">
   <meta property="og:type" content="website">
   <meta name="theme-color" content="#C9956A">
+  <link rel="canonical" href="https://emanuelaallietti-pixel.github.io/unfuckwithable/">
+  <meta name="robots" content="index, follow">
+  <meta name="author" content="Emanuela Allietti">
+  <meta name="keywords" content="life coaching donne, business coaching italia, coach professionista, crescita personale, indipendenza economica, coaching online">
+  <meta property="og:url" content="https://emanuelaallietti-pixel.github.io/unfuckwithable/">
+  <meta property="og:image" content="https://i.ibb.co/b5CvKJQ0/hf-20260321-155713-a29cf4ab-a192-4f16-9e4f-7d932cc9d9f7.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="UNFUCKWITHABLE — Coaching per donne ambiziose">
+  <meta name="twitter:description" content="Non sei troppo poco. Sei nel posto sbagliato. Scopri il percorso di coaching su misura per te.">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    "name": "UNFUCKWITHABLE",
+    "description": "Life & Business Coaching professionale per donne ambiziose",
+    "founder": {"@type": "Person", "name": "Emanuela Allietti"},
+    "email": "msbcoaching26@gmail.com",
+    "telephone": "+393518332521",
+    "url": "https://emanuelaallietti-pixel.github.io/unfuckwithable/",
+    "sameAs": [
+      "https://www.instagram.com/emanuela_allietti",
+      "https://tiktok.com/@emanuela.allietti"
+    ],
+    "serviceType": "Life Coaching, Business Coaching",
+    "areaServed": "Italy",
+    "priceRange": "€€"
+  }
+  </script>
 <title>UNFUCKWITHABLE — Riprendi in mano la tua vita</title>
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✦</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -37,7 +65,8 @@
 }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; scroll-padding-top: 0; }
+a:focus-visible, button:focus-visible { outline: 2px solid var(--rosegold); outline-offset: 3px; }
+html { scroll-behavior: smooth; scroll-padding-top: 80px; }
 
 body {
   font-family: 'DM Sans', sans-serif;
@@ -130,10 +159,14 @@ body::before {
 }
 
 nav {
-  position: relative; z-index: 10;
-  padding: 2rem 4rem;
+  position: sticky; top: 0; z-index: 1000;
+  padding: 1.2rem 4rem;
   display: flex; align-items: center; justify-content: space-between;
   flex-wrap: wrap; gap: 0.5rem;
+  background: rgba(232,224,213,0.97);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--divider);
+  transition: box-shadow 0.3s;
 }
 
 .logo {
@@ -176,8 +209,7 @@ nav {
 .hero-headline .l1 { display: block; color: var(--taupe); }
 .hero-headline .l2 { display: block; color: var(--rosegold); }
 .hero-headline .l3 {
-  display: block; color: transparent;
-  -webkit-text-stroke: 1.5px rgba(196,144,106,0.38);
+  display: block; color: var(--taupe);
 }
 
 .hero-sub {
@@ -984,23 +1016,23 @@ footer {
 
   <nav>
     <div class="logo">Unfuckwithable</div>
-    <a href="#quiz" class="nav-cta">Scarica Gratis →</a>
+    <a href="https://calendly.com/msbcoaching26" target="_blank" class="nav-cta" aria-label="Prenota call gratuita">Prenota la Call →</a>
   </nav>
 
   <div class="hero-content">
     <div class="hero-eyebrow reveal">Per le donne che hanno deciso di dare una svolta alla propria vita</div>
     <h1 class="hero-headline reveal">
       <span class="l1">Non sei</span>
-      <span class="l2">rotta.</span>
-      <span class="l3">Sei pronta.</span>
+      <span class="l2">troppo poco.</span>
+      <span class="l3">Sei nel posto sbagliato.</span>
     </h1>
     <p class="hero-sub reveal">
-      Smetti di aspettare il momento giusto.<br>
-      Con il Metodo UNFUCKWITHABLE costruisci <strong>la vita e il business che meriti</strong> — partendo da chi sei, adesso.
+      Non è il classico corso che ti dice <em>"segui la tua passione"</em>.<br>
+      È roba concreta. Si lavora. E funziona.
     </p>
     <div class="hero-ctas reveal">
-      <a href="#quiz" class="btn-primary">↓ Scopri il tuo profilo gratis</a>
-      <a href="#chi-sono" class="hero-ghost">Scopri chi sono →</a>
+      <a href="#quiz" class="btn-primary">↓ Fai il Quiz Gratuito</a>
+      <a href="#chi-sono" class="hero-ghost" style="color:var(--warm-white);font-weight:700;border-color:rgba(253,249,246,0.6);">Scopri chi sono →</a>
     </div>
   </div>
 
@@ -1042,7 +1074,7 @@ footer {
 
 
 <!-- ══════════════════════════════════════
-     SECTION 2B — CHI SONO
+     SECTION 2 — CHI SONO
 ══════════════════════════════════════ -->
 <section class="about" id="chi-sono" style="position:relative;">
   <div class="about-bg"></div>
@@ -1052,7 +1084,7 @@ footer {
       <!-- Left: photo -->
       <div class="about-photo-col reveal">
         <div class="about-photo-wrap">
-          <img src="https://i.ibb.co/b5CvKJQ0/hf-20260321-155713-a29cf4ab-a192-4f16-9e4f-7d932cc9d9f7.png" alt="Emanuela Allietti — Coach Professionista" class="about-photo" />
+          <img loading="lazy" src="https://i.ibb.co/b5CvKJQ0/hf-20260321-155713-a29cf4ab-a192-4f16-9e4f-7d932cc9d9f7.png" alt="Emanuela Allietti — Coach Professionista" class="about-photo" />
           <div class="about-photo-badge">
             <span class="badge-icon">✦</span>
             <span class="badge-text">Coach Professionista Certificata</span>
@@ -1091,22 +1123,17 @@ footer {
         </h2>
 
         <div class="about-story reveal">
-          <p>Per 20 anni ho lavorato nella grande distribuzione — commessa, addetta alle vendite, contratti precari. Nel 2017 ho toccato il fondo: orari assurdi, sei giorni su sette, dalle 7 alle 21. <strong>Vedevo mia figlia Asya solo nel mio giorno di riposo.</strong></p>
+          <p>Per 20 anni ho lavorato nella grande distribuzione. Commessa, addetta alle vendite, contratti precari. Nel 2017 guadagnavo <strong>1.800 euro al mese facendo turni da 14 ore</strong>, sei giorni su sette. Non avevo una vita privata. Le uniche "amicizie" erano colleghi in un ambiente tossico — invidie, gelosie, raggiri. <strong>Vedevo mia figlia Asya solo nel mio giorno di riposo.</strong></p>
           <p>Una sera, in videochiamata, lei mi ha detto: <em>"Mamma, posso tornare a stare con te? Mi manchi tanto."</em></p>
           <p>Quella frase ha cambiato tutto. Ho capito che dovevo cambiare il mio modo di lavorare — e ho iniziato a studiare, formarmi, capire come funzionava il mondo online.</p>
-          <p>In quasi 10 anni ho costruito competenze in social media, copywriting, web design, strategia digitale, PNL, mindset, ipnosi, crescita personale e coaching professionale. <strong>Non per diventare un'esperta. Per diventare libera.</strong></p>
+          <p>In quasi 10 anni ho studiato tanto — crescita personale, mindset, digitale, business, e molto altro ancora. Non per mettere titoli su un curriculum. <strong>Per capire davvero come funziona il cambiamento — dentro e fuori.</strong> E per poterlo insegnare a chi sta dove stavo io.</p>
           <p>Oggi sono una <strong>Coach Professionista riconosciuta ICF</strong> e affianco le donne che — come lo ero io — vogliono smettere di sopravvivere e iniziare davvero a vivere. Con un business che le rappresenta. Con il tempo per chi amano. Con la certezza di farcela.</p>
         </div>
 
         <div class="about-tags reveal">
-          <span class="about-tag">Social Media Strategy</span>
-          <span class="about-tag">Mindset & PNL</span>
+          <span class="about-tag">Coaching Professionale</span>
+          <span class="about-tag">Mindset & Crescita Personale</span>
           <span class="about-tag">Business Digitale</span>
-          <span class="about-tag">Ipnosi & Crescita Personale</span>
-          <span class="about-tag">Coaching Professionale Certificato</span>
-          <span class="about-tag">Copywriting</span>
-          <span class="about-tag">Web Design</span>
-          <span class="about-tag">Intelligenza Artificiale</span>
         </div>
 
         <blockquote class="about-quote reveal">
@@ -1282,52 +1309,38 @@ footer {
 
     <div class="pain-grid reveal">
       <div class="pain-card">
-        <div class="pain-icon">🪞</div>
-        <div class="pain-card-text">
-          <strong>Ti guardi allo specchio</strong>
-          e non riconosci più quella versione di te che aveva sogni, energie, voglia di costruire qualcosa di suo.
-        </div>
-      </div>
-      <div class="pain-card">
         <div class="pain-icon">💸</div>
         <div class="pain-card-text">
-          <strong>Dipendenza economica</strong>
-          da qualcuno o da qualcosa. Ogni fine mese la stessa ansia. La sensazione che i soldi non siano mai "tuoi davvero".
-        </div>
-      </div>
-      <div class="pain-card">
-        <div class="pain-icon">📚</div>
-        <div class="pain-card-text">
-          <strong>Hai già provato corsi</strong>
-          guide, video su YouTube, group challenge su Telegram. Tanti contenuti, zero risultati concreti. E ora ti chiedi se il problema sei tu.
+          <strong>Ogni volta che devi chiedere i soldi per comprare qualcosa</strong>
+          senti un nodo allo stomaco. Non sono tuoi. Non veramente. E quella sensazione ti rode da dentro ogni singolo giorno.
         </div>
       </div>
       <div class="pain-card">
         <div class="pain-icon">😶</div>
         <div class="pain-card-text">
-          <strong>Paura del giudizio</strong>
-          della famiglia, del partner, delle amiche. <span style="font-size:1.15em;font-weight:900;color:var(--rosegold-dark);display:block;margin:0.3rem 0;">"MA CHI TI CREDI DI ESSERE?"</span> è la frase che senti anche quando non viene detta.
+          <span style="font-size:1.15em;font-weight:900;color:var(--rosegold-dark);display:block;margin:0.3rem 0;">"MA CHI TI CREDI DI ESSERE?"</span>
+          La senti anche quando nessuno la dice. È la tua voce. E ha imparato a fermarti prima ancora che tu inizi.
         </div>
       </div>
       <div class="pain-card">
-        <div class="pain-icon">🌀</div>
+        <div class="pain-icon">📚</div>
         <div class="pain-card-text">
-          <strong>Non sai da dove iniziare</strong>
-          Tutto sembra troppo complicato, troppo tecnico, troppo costoso. Il digitale sembra fatto per gli altri — non per te.
+          <strong>Hai già comprato corsi.</strong>
+          Guardato video. Letto libri. Salvato post su Instagram alle 2 di notte. Ma il lunedì mattina è uguale a quello prima. E inizi a pensare che il problema sia tu.
         </div>
       </div>
       <div class="pain-card">
         <div class="pain-icon">⏳</div>
         <div class="pain-card-text">
-          <strong>Il tempo passa</strong>
-          e la versione di te che volevi diventare si allontana ogni giorno di più. Mentre aspetti "il momento giusto" che non arriva mai.
+          <strong>Aspetti il momento giusto.</strong>
+          Quando finisce questo periodo. Quando i figli crescono. Quando ti senti pronta. Intanto gli anni passano e quella versione di te che volevi diventare si allontana sempre di più.
         </div>
       </div>
     </div>
 
     <div class="pain-quote reveal">
-      <p>"Il problema non sei tu. Non lo sei mai stata. Il problema è che nessuno ti ha ancora dato il metodo giusto, nel linguaggio giusto, con il supporto che meriti. Fino ad oggi."</p>
-      <cite>— Principio fondante del Metodo UNFUCKWITHABLE</cite>
+      <p>"Il problema non sei tu. Non lo sei mai stata.<br>Nessuno ti ha ancora dato il metodo giusto, nel linguaggio giusto, con qualcuno che ci creda davvero insieme a te."</p>
+      <cite>— Emanuela Allietti</cite>
     </div>
   </div>
 </section>
@@ -1346,17 +1359,16 @@ footer {
           <span class="rh-taupe">Stai partendo<br>ora.</span>
         </h2>
         <p class="reframe-body reveal">
-          Ogni donna che oggi vive con più serenità, più sicurezza e più libertà —
-          nel lavoro, nelle relazioni, nella vita —
-          <strong>è partita esattamente da dove sei tu adesso.</strong>
-          Con la stessa paura. Gli stessi dubbi. Le stesse notti a chiedersi "ma ce la farò davvero?"
+          Ogni donna che oggi sta meglio — nel lavoro, nelle relazioni, con se stessa —
+          è partita da un posto molto simile al tuo.
+          <strong>Con la stessa paura. Gli stessi dubbi.</strong>
+          Le stesse notti a chiedersi "ma ce la farò davvero?"
         </p>
         <p class="reframe-body reveal">
-          Non importa se vuoi costruire un business, crescere nel tuo lavoro attuale,
-          ritrovare te stessa o semplicemente sentirti più sicura ogni giorno.
-          La differenza non era il talento. Era avere
-          <strong>qualcuno che le tenesse la mano nel momento giusto</strong>,
-          con un percorso costruito su chi sei — non su chi dovresti essere.
+          La differenza non era il talento o la fortuna.
+          Era avere qualcuno che non le desse un corso registrato —
+          ma che lavorasse <strong>con lei, su di lei, per lei.</strong>
+          Senza template. Senza frasi fatte. Sul serio.
         </p>
         <ul class="reframe-steps reveal">
           <li class="reframe-step">
@@ -1376,8 +1388,10 @@ footer {
 
       <div class="reveal">
         <div class="quote-card">
-          <p class="qt">"Non sapevo da dove iniziare e avevo mille paure. Quello che ho trovato nel percorso non era solo una guida pratica — era qualcuno che credeva in me prima ancora che ci credessi io. Questo cambia tutto."</p>
-          <div class="qa">— S.M., 34 anni · impiegata di banca · Roma · percorso Riparto da Me</div>
+          <p class="qt">"La testimonianza di una cliente reale arriva presto. Nel frattempo, prenota la tua call gratuita e scopri se questo percorso fa per te."</p>
+          <div class="qa" style="margin-top:1.5rem;">
+            <a href="https://calendly.com/msbcoaching26" target="_blank" style="background:var(--rosegold);color:white;padding:0.75rem 1.5rem;text-decoration:none;font-size:0.75rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;">Prenota la call gratuita →</a>
+          </div>
         </div>
       </div>
     </div>
@@ -1403,16 +1417,19 @@ footer {
         <div class="gift-icon">🌱</div>
         <div class="gift-title">Riparto da Me <span style="font-size:0.7em;color:var(--taupe-soft);font-weight:400;">(Crescita Personale)</span></div>
         <div class="gift-desc">Le 4 chiavi per rimettere te stessa al centro — emozioni, tempo, autostima e identità. Per chi vuole ritrovarsi prima di costruire.</div>
+        <a href="#" onclick="openLeadPopup('https://drive.google.com/file/d/1232FH792oiPoN9ru8n47ZodnFWotM667/preview', 'Riparto da Me — Crescita Personale');return false;" style="display:inline-block;margin-top:0.6rem;font-size:0.7rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--rosegold);text-decoration:none;">Scarica gratis →</a>
       </div>
       <div class="gift-card">
         <div class="gift-icon">💼</div>
         <div class="gift-title">Da Zero a Indipendente <span style="font-size:0.7em;color:var(--taupe-soft);font-weight:400;">(Costruzione e Lancio Business)</span></div>
         <div class="gift-desc">Le 4 fondamenta per costruire un business che ti rappresenta — Ikigai, nicchia, offerta e primi passi concreti.</div>
+        <a href="#" onclick="openLeadPopup('https://drive.google.com/file/d/1MMWRcSDGT5v4qfk2Jmwo_GReU2xF3xE_/preview', 'Da Zero a Indipendente — Business Coaching');return false;" style="display:inline-block;margin-top:0.6rem;font-size:0.7rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--rosegold);text-decoration:none;">Scarica gratis →</a>
       </div>
       <div class="gift-card">
         <div class="gift-icon">💻</div>
         <div class="gift-title">Digitale Senza Paura <span style="font-size:0.7em;color:var(--taupe-soft);font-weight:400;">(Formazione Digitale)</span></div>
         <div class="gift-desc">Le 4 basi del mondo online — social, algoritmi, AI e profilo Instagram — spiegate in modo semplice e immediato.</div>
+        <a href="#" onclick="openLeadPopup('https://drive.google.com/file/d/1G-oLz7EYnQe9GMjEw1xde4IPaiuIsfAu/preview', 'Digitale Senza Paura — Formazione Digitale');return false;" style="display:inline-block;margin-top:0.6rem;font-size:0.7rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--rosegold);text-decoration:none;">Scarica gratis →</a>
       </div>
     </div>
 
@@ -1440,90 +1457,33 @@ footer {
     <div class="testi-grid reveal">
       <div class="testi-card">
         <div class="testi-stars">★★★★★</div>
-        <p class="testi-quote">"Avevo 38 anni, un lavoro fisso che odiavo e la certezza di non saper fare niente di speciale. Emanuela mi ha aiutata a capire che quello che sapevo fare era già abbastanza — mancava solo il modo giusto per trasformarlo in qualcosa di mio. Oggi lavoro da casa, gestisco i miei orari e guadagno più di prima."</p>
-        <div class="testi-name">M.R.</div>
-        <div class="testi-role">Ex impiegata amministrativa · ora consulente di comunicazione freelance · Latina</div>
-        <div class="testi-badge">✦ Percorso: Da Zero a Indipendente · partita senza esperienza digitale</div>
+        <p class="testi-quote">"Ciao Manu, dopo la nostra call ho messo in pratica i tuoi consigli sia a livello social che nella vita privata e che dire — sto vedendo già dei miglioramenti. Grazie di vero cuore e non vedo l'ora di continuare il percorso."</p>
+        <div class="testi-name">Eleonora A.</div>
+        <div class="testi-role">Mamma · 36 anni</div>
+        <div class="testi-badge">✦ Percorso: Gestione emozioni — 4 sessioni</div>
       </div>
       <div class="testi-card">
         <div class="testi-stars">★★★★★</div>
-        <p class="testi-quote">"La cosa che mi ha colpito di più? Non mi ha dato un metodo preconfezionato. Ha ascoltato la mia storia — davvero — e ha costruito un percorso intorno a me. Per la prima volta mi sono sentita vista, non un numero in un corso online. Questo fa tutta la differenza."</p>
-        <div class="testi-name">F.D.</div>
-        <div class="testi-role">Mamma di 2 bambini · casalinga · Aprilia (LT)</div>
-        <div class="testi-badge">✦ Percorso: Riparto da Me · ha ritrovato autostima e direzione</div>
+        <p class="testi-quote">"Emanuela è una business coach che sa sostenere, orientare e fare chiarezza nel lavoro, accompagnandoti in una direzione ben precisa. Lo fa rispettando i tempi e le difficoltà individuali e anche attraverso il suo stesso esempio. Lavorando con lei è chiaro che quello che ti trasmette nasce da sue esperienze dirette. Non è solo un arricchimento sul piano tecnico — è una fonte di ispirazione concreta e pratica che spinge alla realizzazione delle proprie idee."</p>
+        <div class="testi-name">Laura V.</div>
+        <div class="testi-role">Fisioterapista · 50 anni</div>
+        <div class="testi-badge">✦ Percorso: Business & Social Media — 2 sessioni</div>
       </div>
-      <div class="testi-card">
-        <div class="testi-stars">★★★★★</div>
-        <p class="testi-quote">"Avevo paura del digitale — mi sembrava un mondo per giovani e per chi è bravo con la tecnologia. Emanuela me lo ha spiegato in modo così semplice e concreto che in poche settimane avevo già il mio profilo Instagram attivo, i miei contenuti e i miei primi contatti. Senza panico."</p>
-        <div class="testi-name">S.C.</div>
-        <div class="testi-role">Artigiana · Roma</div>
-        <div class="testi-badge">✦ Percorso: Digitale Senza Paura</div>
-      </div>
-    </div>
-
-    <!-- GARANZIA RIMBORSO -->
-    <div class="garanzia-block reveal">
-      <div class="garanzia-inner">
-        <div class="garanzia-icon">🛡️</div>
-        <div class="garanzia-content">
-          <div class="garanzia-title">Garanzia Soddisfatta o Rimborsata — 30 Giorni</div>
-          <p class="garanzia-text">
-            Ci credo talmente tanto nel metodo UNFUCKWITHABLE che ti offro una garanzia completa.
-            Se entro i primi <strong>30 giorni</strong> dall'inizio del percorso non sei soddisfatta —
-            per qualsiasi motivo — ti rimborso l'intero importo pagato. Senza domande, senza discussioni.
-            Il tuo investimento è protetto. L'unico rischio è non provarci.
-          </p>
-          <div class="garanzia-note">✦ Valida per tutti i percorsi · Rimborso entro 5 giorni lavorativi · Nessuna clausola nascosta</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- EXTRA TESTIMONIALS -->
-    <div id="altre-storie" class="altre-storie-wrap reveal" style="display:none;">
-      <div class="testi-grid" style="margin-top:1.5px;">
-        <div class="testi-card">
-          <div class="testi-stars">★★★★★</div>
-          <p class="testi-quote">"Prima di iniziare questo percorso non riuscivo a dire no a nessuno. Mettevo sempre tutti davanti a me — al lavoro, in famiglia, ovunque. Oggi so chi sono, so cosa voglio e so come chiederlo. Non sono diventata egoista — sono diventata intera."</p>
-          <div class="testi-name">L.B.</div>
-          <div class="testi-role">Infermiera · 41 anni · Frosinone</div>
-          <div class="testi-badge">✦ Percorso: Riparto da Me · da invisibile a presente</div>
-        </div>
-        <div class="testi-card">
-          <div class="testi-stars">★★★★★</div>
-          <p class="testi-quote">"Avevo una relazione tossica da 7 anni. Non riuscivo ad uscirne perché non credevo di meritare di meglio. Il lavoro su me stessa con Emanuela mi ha dato gli strumenti per riconoscere il mio valore — e il coraggio di scegliermi. Oggi sono libera. E finalmente felice."</p>
-          <div class="testi-name">V.C.</div>
-          <div class="testi-role">Commessa · 34 anni · Napoli</div>
-          <div class="testi-badge">✦ Percorso: Riparto da Me · da insicura a intoccabile</div>
-        </div>
-        <div class="testi-card">
-          <div class="testi-stars">★★★★★</div>
-          <p class="testi-quote">"Mi vergognavo di me stessa. Del mio corpo, della mia voce, delle mie idee. Oggi non chiedo più scusa per esistere. Ho iniziato a parlare in pubblico, a postare online, a dire la mia. La differenza? Ho smesso di aspettare il permesso degli altri per essere me stessa."</p>
-          <div class="testi-name">G.M.</div>
-          <div class="testi-role">Impiegata · 29 anni · Roma</div>
-          <div class="testi-badge">✦ Percorso: Riparto da Me · da silenziosa a indomabile</div>
+      <div class="testi-card" style="background:linear-gradient(135deg,rgba(196,144,106,0.06),rgba(242,221,213,0.3));border:1.5px dashed rgba(196,144,106,0.3);">
+        <div class="testi-stars" style="color:rgba(196,144,106,0.4);">★★★★★</div>
+        <p class="testi-quote" style="font-style:italic;color:rgba(90,53,53,0.5);">"La prossima storia potrebbe essere la tua. Prenota la call gratuita e scopri come possiamo lavorare insieme."</p>
+        <div class="testi-name" style="color:var(--rosegold);font-size:1.2rem;">Sei tu?</div>
+        <div class="testi-role" style="color:var(--taupe);font-weight:600;font-size:0.85rem;">Il tuo percorso inizia da una call gratuita di 30 minuti.</div>
+        <div style="margin-top:1rem;">
+          <a href="https://calendly.com/msbcoaching26" target="_blank" style="display:inline-block;padding:0.6rem 1.2rem;background:var(--rosegold);color:white;font-size:0.68rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;text-decoration:none;">Prenota la call →</a>
         </div>
       </div>
     </div>
 
     <div class="testi-nudge reveal">
       <p>Vuoi essere la prossima storia da raccontare?</p>
-      <button onclick="toggleStorie()" id="btn-storie" style="background:none;border:1px solid rgba(196,144,106,0.4);color:var(--rosegold);font-size:0.7rem;letter-spacing:0.14em;text-transform:uppercase;padding:0.7rem 1.5rem;cursor:pointer;margin-top:0.75rem;transition:all 0.3s;font-family:'DM Sans',sans-serif;">Leggi le altre storie →</button>
       <span class="testi-arrow">↓</span>
     </div>
-
-    <script>
-    function toggleStorie() {
-      var el = document.getElementById('altre-storie');
-      var btn = document.getElementById('btn-storie');
-      if (el.style.display === 'none') {
-        el.style.display = 'block';
-        btn.textContent = 'Nascondi le storie ↑';
-      } else {
-        el.style.display = 'none';
-        btn.textContent = 'Leggi le altre storie →';
-      }
-    }
-    </script>
   </div>
 </section>
 
@@ -1544,17 +1504,17 @@ footer {
       <div class="method-step">
         <div class="step-big-num">01</div>
         <div class="step-title">Riparto da Me</div>
-        <p class="step-desc">Nessun risultato esterno regge su fondamenta di paura. Prima lavoriamo su chi sei — autostima, emozioni, identità, gestione del tempo. La tua mente è il tuo asset più potente, e si allena.</p>
+        <p class="step-desc">Partiamo da dentro. Autostima, paure, identità — quella roba che nessun corso di marketing ti insegna ma che blocca tutto il resto. Senza questo step, niente regge.</p>
       </div>
       <div class="method-step">
         <div class="step-big-num">02</div>
         <div class="step-title">Da Zero a Indipendente</div>
-        <p class="step-desc">Capiamo insieme cosa vuoi davvero — costruire un business, migliorare il tuo lavoro attuale, trovare la tua strada. Poi costruiamo un piano concreto su misura per te: nicchia, offerta, strategia o semplicemente il prossimo passo giusto.</p>
+        <p class="step-desc">Cosa vuoi davvero? Un business tuo, crescere dove sei, o semplicemente non sentirti più bloccata? Troviamolo insieme. Poi costruiamo un piano concreto — non teoria, roba che puoi fare questa settimana.</p>
       </div>
       <div class="method-step">
         <div class="step-big-num">03</div>
         <div class="step-title">Digitale Senza Paura</div>
-        <p class="step-desc">Social, AI, copywriting, automazioni — te lo insegno in italiano semplice, passo dopo passo. Senza termini tecnici inutili. Senza farti sentire stupida. Con strumenti utili e facili da capire.</p>
+        <p class="step-desc">Il digitale non è roba da giovani o da smanettoni. Te lo spiego in italiano normale, con strumenti che esistono già e costano poco. E se non capisci qualcosa, si ripiega finché non è chiaro.</p>
       </div>
     </div>
 
@@ -1562,16 +1522,14 @@ footer {
       <p>"Ogni donna che entra nel programma porta con sé una storia diversa. Ogni donna che esce porta con sé risultati concreti."</p>
       <div class="method-btns">
         <a href="#testimonials" class="btn-ghost-warm" style="color:rgba(253,249,246,0.8);border-color:rgba(253,249,246,0.3);">Leggi le storie →</a>
-        <a href="#quiz" class="btn-ghost-warm" style="color:rgba(253,249,246,0.8);border-color:rgba(253,249,246,0.3);">Scopri come iniziare →</a>
+        <a href="https://calendly.com/msbcoaching26" target="_blank" class="btn-ghost-warm" style="color:rgba(253,249,246,0.8);border-color:rgba(253,249,246,0.3);">Prenota la call gratuita →</a>
       </div>
     </div>
   </div>
 </section>
 
 
-<!-- ══════════════════════════════════════
-     SECTION 6B — QUIZ FUNNEL
-══════════════════════════════════════ -->
+
 
 <!-- ══════════════════════════════════════
      SECTION 6B — QUIZ FUNNEL (Pure JS)
@@ -2051,6 +2009,7 @@ footer {
       html += '<div><label class="q-input-label">Il tuo nome</label><input class="q-input" id="qi-nome" type="text" placeholder="Il tuo nome" value="' + (state.answers.contatti.nome||'') + '"></div>';
       html += '<div><label class="q-input-label">Il tuo cognome</label><input class="q-input" id="qi-cognome" type="text" placeholder="Il tuo cognome" value="' + (state.answers.contatti.cognome||'') + '"></div>';
       html += '<div><label class="q-input-label">La tua email</label><input class="q-input" id="qi-email" type="email" placeholder="La tua email migliore" value="' + (state.answers.contatti.email||'') + '"></div>';
+      html += '<label style="display:flex;align-items:flex-start;gap:0.5rem;margin-top:0.5rem;cursor:pointer;"><input type="checkbox" id="qi-consent" style="margin-top:3px;accent-color:#c4906a;"><span style="font-size:0.72rem;color:#8B6E63;line-height:1.5;">Accetto la <a href="https://www.iubenda.com/privacy-policy/unfuckwithable" target="_blank" style="color:#c4906a;">Privacy Policy</a> e di ricevere comunicazioni da UNFUCKWITHABLE</span></label>';
       html += '</div>';
     } else {
       html += '<div class="q-options">';
@@ -2174,6 +2133,10 @@ footer {
     html += '<div style="text-align:center;"><a class="q-pdf-btn" href="' + pInfo.pdf + '" target="_blank">🎁 Scarica la tua guida gratuita →</a></div>';
     html += '</div>';
     html += '<div class="q-finale">' + r.finale + '</div>';
+    html += '<div style="text-align:center;margin-top:1.5rem;padding-top:1.5rem;border-top:1px solid rgba(196,144,106,0.2);">';
+    html += '<p style="font-size:0.8rem;color:#8B6E63;margin-bottom:1rem;">Vuoi lavorare insieme su questo percorso?</p>';
+    html += '<a href="https://calendly.com/msbcoaching26" target="_blank" style="display:inline-block;padding:0.875rem 2rem;background:linear-gradient(135deg,#c4906a,#a87658);border-radius:100px;color:white;font-size:0.78rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;text-decoration:none;">Prenota la call gratuita →</a>';
+    html += '</div>';
     html += '</div>';
     app.innerHTML = html;
   }
@@ -2193,7 +2156,7 @@ footer {
 
       <!-- Left: free call -->
       <div>
-        <span class="offer-tag reveal">Il tuo primo passo — gratuito e senza impegno</span>
+        <span class="offer-tag reveal">Prima parliamo. Poi decidi. Zero pressioni.</span>
         <h2 class="offer-headline reveal">
           Inizia da<br>
           <span class="og">30 minuti</span><br>
@@ -2212,9 +2175,6 @@ footer {
           <li><span class="chk">✓</span> Risposta alle tue domande più urgenti</li>
           <li><span class="chk">✓</span> Onestà totale — anche se la risposta è "non fa per te"</li>
         </ul>
-        <div style="background:rgba(196,144,106,0.08);border:1px solid rgba(196,144,106,0.2);padding:0.9rem 1.2rem;margin-bottom:1.5rem;font-size:0.8rem;color:var(--taupe);line-height:1.6;">
-          💳 <strong>Pagamenti:</strong> Bonifico bancario, PayPal o carta di credito — modalità concordate durante la call gratuita.
-        </div>
         <a href="https://calendly.com/msbcoaching26" target="_blank" class="btn-primary reveal">Prenota la tua call gratuita →</a>
       </div>
 
@@ -2235,10 +2195,7 @@ footer {
           <li><span class="chk">✓</span> Gruppo privato esclusivo + revisione profilo Instagram</li>
           <li><span class="chk">✓</span> <strong>BONUS:</strong> Meditazioni guidate, live di gruppo e sessioni di confronto</li>
         </ul>
-        <div class="urgency-strip" style="margin-bottom:1.2rem;">
-          <div class="urgency-dot"></div>
-          <span class="urgency-txt">⚠️ Solo 3 posti disponibili ogni mese — attualmente 1 libero</span>
-        </div>
+
         <div style="text-align:center;padding:1rem;background:rgba(196,144,106,0.08);border:1px solid rgba(196,144,106,0.2);margin-bottom:1.5rem;border-radius:4px;">
           <p style="font-family:'Cormorant Garamond',serif;font-size:0.95rem;font-style:italic;color:var(--taupe);line-height:1.6;margin:0;">
             Chi prenota la call gratuita oggi<br>
@@ -2246,7 +2203,8 @@ footer {
             <span style="font-size:0.8rem;color:var(--taupe-soft);">valido solo nelle 48 ore successive alla call</span>
           </p>
         </div>
-        <a href="https://calendly.com/msbcoaching26" target="_blank" class="btn-primary" style="width:100%;justify-content:center;">✦ Scopri l'offerta — Entro 48 Ore →</a>
+        <div style="font-size:0.75rem;color:var(--taupe-soft);text-align:center;margin-bottom:1rem;line-height:1.6;">💳 Pagamenti accettati: Bonifico bancario · PayPal · Carta di credito<br><span style="font-size:0.68rem;">Modalità e importi concordati durante la call gratuita</span></div>
+        <a href="https://calendly.com/msbcoaching26" target="_blank" class="btn-primary" style="width:100%;justify-content:center;">✦ Scopri come →</a>
         <p style="text-align:center;font-size:0.62rem;color:var(--taupe-soft);margin-top:0.75rem;letter-spacing:0.08em;">Call gratuita · Nessun impegno · Posti limitati</p>
       </div>
 </section>
@@ -2265,8 +2223,8 @@ footer {
       Non aspettare il momento perfetto.<br>
       <em>Il momento perfetto è adesso — con quello che hai, da dove sei.</em>
     </p>
-    <a href="#quiz" class="btn-primary reveal" style="margin:0 auto;display:inline-flex;">
-      ✦ Scopri il tuo profilo gratis
+    <a href="https://calendly.com/msbcoaching26" target="_blank" class="btn-primary reveal" style="margin:0 auto;display:inline-flex;">
+      ✦ Prenota la call gratuita →
     </a>
   </div>
 </section>
@@ -2276,7 +2234,7 @@ footer {
   <div class="section-inner" style="max-width:700px;">
     <p style="font-size:0.75rem;color:var(--taupe-soft);line-height:1.8;">
       <strong style="color:var(--taupe);display:block;margin-bottom:0.5rem;font-size:0.8rem;letter-spacing:0.1em;text-transform:uppercase;">Privacy & Contatti</strong>
-      UNFUCKWITHABLE · Emanuela Allietti · <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#109;&#115;&#98;&#99;&#111;&#97;&#99;&#104;&#105;&#110;&#103;&#50;&#54;&#64;&#103;&#109;&#97;&#105;&#108;&#46;&#99;&#111;&#109;" style="color:var(--rosegold);text-decoration:none;">msbcoaching26&#64;gmail.com</a> · ·<br>
+      UNFUCKWITHABLE · Emanuela Allietti · P.IVA in fase di attivazione · <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#109;&#115;&#98;&#99;&#111;&#97;&#99;&#104;&#105;&#110;&#103;&#50;&#54;&#64;&#103;&#109;&#97;&#105;&#108;&#46;&#99;&#111;&#109;" style="color:var(--rosegold);text-decoration:none;">msbcoaching26&#64;gmail.com</a> · ·<br>
       Compilando il quiz o i form del sito accetti di ricevere comunicazioni dal Metodo UNFUCKWITHABLE.<br>
       I tuoi dati sono trattati nel rispetto del GDPR (Reg. UE 2016/679). Disiscrizione in un click, quando vuoi.<br>
       <a href="https://www.iubenda.com/privacy-policy/unfuckwithable" target="_blank" style="color:var(--rosegold);text-decoration:none;">Privacy Policy completa</a> · <a href="https://www.iubenda.com/privacy-policy/unfuckwithable/cookie-policy" target="_blank" style="color:var(--rosegold);text-decoration:none;">Cookie Policy</a>
@@ -2411,7 +2369,7 @@ if (localStorage.getItem('cookie_consent')) {
     <div style="font-size:0.88rem;line-height:1.8;color:#5a3535;">
 
       <h3 style="font-size:1rem;font-weight:700;color:#c4906a;margin:1.5rem 0 0.5rem;text-transform:uppercase;letter-spacing:0.1em;">1. Chi siamo</h3>
-      <p>UNFUCKWITHABLE è un servizio di Life & Business Coaching offerto da Emanuela Allietti, Coach Professionista Certificata. Per informazioni: <a href="mailto:msbcoaching26@gmail.com" style="color:#c4906a;">msbcoaching26@gmail.com</a></p>
+      <p>UNFUCKWITHABLE è un servizio di Life & Business Coaching offerto da Emanuela Allietti, Coach Professionista Certificata. Per informazioni: &#109;&#115;&#98;&#99;&#111;&#97;&#99;&#104;&#105;&#110;&#103;&#50;&#54;&#64;&#103;&#109;&#97;&#105;&#108;&#46;&#99;&#111;&#109;</p>
 
       <h3 style="font-size:1rem;font-weight:700;color:#c4906a;margin:1.5rem 0 0.5rem;text-transform:uppercase;letter-spacing:0.1em;">2. Servizi offerti</h3>
       <p>UNFUCKWITHABLE offre percorsi di coaching individuale nelle seguenti aree:</p>
@@ -2430,12 +2388,12 @@ if (localStorage.getItem('cookie_consent')) {
 
       <h3 style="font-size:1rem;font-weight:700;color:#c4906a;margin:1.5rem 0 0.5rem;text-transform:uppercase;letter-spacing:0.1em;">4. Diritto di recesso</h3>
       <p>In conformità al D.Lgs. 206/2005 (Codice del Consumo), hai diritto di recedere dal contratto entro <strong>14 giorni</strong> dalla data di acquisto, senza fornire alcuna motivazione.</p>
-      <p>Per esercitare il diritto di recesso, invia una comunicazione scritta a: <a href="mailto:msbcoaching26@gmail.com" style="color:#c4906a;">msbcoaching26@gmail.com</a></p>
+      <p>Per esercitare il diritto di recesso, invia una comunicazione scritta a: &#109;&#115;&#98;&#99;&#111;&#97;&#99;&#104;&#105;&#110;&#103;&#50;&#54;&#64;&#103;&#109;&#97;&#105;&#108;&#46;&#99;&#111;&#109;</p>
       <p><strong>Nota:</strong> Il diritto di recesso decade se il servizio è già stato completamente erogato con il tuo esplicito consenso prima della scadenza dei 14 giorni.</p>
 
       <h3 style="font-size:1rem;font-weight:700;color:#c4906a;margin:1.5rem 0 0.5rem;text-transform:uppercase;letter-spacing:0.1em;">5. Garanzia soddisfatta o rimborsata</h3>
       <p>Offriamo una <strong>garanzia di rimborso entro 30 giorni</strong> dall'inizio del percorso. Se non sei soddisfatta per qualsiasi motivo entro i primi 30 giorni, rimborsiamo l'intero importo pagato entro 5 giorni lavorativi, senza domande.</p>
-      <p>Per richiedere il rimborso: <a href="mailto:msbcoaching26@gmail.com" style="color:#c4906a;">msbcoaching26@gmail.com</a></p>
+      <p>Per richiedere il rimborso: &#109;&#115;&#98;&#99;&#111;&#97;&#99;&#104;&#105;&#110;&#103;&#50;&#54;&#64;&#103;&#109;&#97;&#105;&#108;&#46;&#99;&#111;&#109;</p>
 
       <h3 style="font-size:1rem;font-weight:700;color:#c4906a;margin:1.5rem 0 0.5rem;text-transform:uppercase;letter-spacing:0.1em;">6. Limitazioni del servizio</h3>
       <p>Il coaching non sostituisce trattamenti psicologici, psicoterapeutici o medici. Se stai attraversando una crisi emotiva grave, ti invitiamo a rivolgerti a professionisti della salute mentale.</p>
@@ -2451,9 +2409,8 @@ if (localStorage.getItem('cookie_consent')) {
       <p>I presenti Termini sono regolati dalla legge italiana. Per qualsiasi controversia è competente il Foro di Latina.</p>
 
       <h3 style="font-size:1rem;font-weight:700;color:#c4906a;margin:1.5rem 0 0.5rem;text-transform:uppercase;letter-spacing:0.1em;">10. Contatti</h3>
-      <p>Per qualsiasi domanda: <a href="mailto:msbcoaching26@gmail.com" style="color:#c4906a;">msbcoaching26@gmail.com</a><br>
+      <p>Per qualsiasi domanda: &#109;&#115;&#98;&#99;&#111;&#97;&#99;&#104;&#105;&#110;&#103;&#50;&#54;&#64;&#103;&#109;&#97;&#105;&#108;&#46;&#99;&#111;&#109;<br>
       WhatsApp: <a href="https://wa.me/393518332521" style="color:#c4906a;">+39 351 833 2521</a></p>
-
     </div>
 
     <div style="text-align:center;margin-top:2rem;">
@@ -2461,6 +2418,32 @@ if (localStorage.getItem('cookie_consent')) {
     </div>
   </div>
 </div>
+
+<!-- LEAD CAPTURE POPUP -->
+<div id="lead-popup" style="display:none;position:fixed;inset:0;z-index:10001;background:rgba(0,0,0,0.65);align-items:center;justify-content:center;padding:1rem;">
+  <div style="background:#fdf9f6;border-radius:16px;padding:2.5rem;max-width:420px;width:100%;position:relative;box-shadow:0 20px 60px rgba(0,0,0,0.2);">
+    <button onclick="closeLeadPopup()" style="position:absolute;top:1rem;right:1rem;background:none;border:none;font-size:1.4rem;cursor:pointer;color:#9a6b70;">✕</button>
+    <p style="font-size:0.6rem;letter-spacing:0.2em;color:#c4906a;font-weight:700;text-transform:uppercase;margin-bottom:0.5rem;">GUIDA GRATUITA</p>
+    <h3 id="popup-title" style="font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:700;color:#5a3535;margin-bottom:0.4rem;">La tua guida è pronta</h3>
+    <p style="font-size:0.85rem;color:#9a6b70;margin-bottom:1.5rem;line-height:1.5;">Lascia nome ed email — ti mando la guida e resto in contatto.</p>
+    <div id="popup-form">
+      <input type="text" id="popup-nome" placeholder="Il tuo nome" style="width:100%;padding:0.875rem 1rem;border:1.5px solid #e8c4bb;border-radius:10px;font-size:0.9rem;font-family:'DM Sans',sans-serif;color:#5a3535;background:#fdf9f6;outline:none;box-sizing:border-box;margin-bottom:0.75rem;" />
+      <input type="email" id="popup-email" placeholder="La tua email migliore" style="width:100%;padding:0.875rem 1rem;border:1.5px solid #e8c4bb;border-radius:10px;font-size:0.9rem;font-family:'DM Sans',sans-serif;color:#5a3535;background:#fdf9f6;outline:none;box-sizing:border-box;margin-bottom:1rem;" />
+      <label style="display:flex;align-items:flex-start;gap:0.5rem;margin-bottom:0.75rem;cursor:pointer;">
+        <input type="checkbox" id="popup-consent" style="margin-top:3px;accent-color:#c4906a;" />
+        <span style="font-size:0.72rem;color:#9a6b70;line-height:1.5;">Accetto di ricevere comunicazioni da UNFUCKWITHABLE. <a href="https://www.iubenda.com/privacy-policy/unfuckwithable" target="_blank" style="color:#c4906a;">Privacy Policy</a></span>
+      </label>
+      <button onclick="submitLeadPopup()" style="width:100%;padding:1rem;background:linear-gradient(135deg,#c4906a,#a87658);border:none;border-radius:100px;color:white;font-size:0.8rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;cursor:pointer;font-family:'DM Sans',sans-serif;">Scarica la guida →</button>
+      <p style="font-size:0.65rem;color:#c4afa6;text-align:center;margin-top:0.75rem;">Niente spam. Puoi cancellarti quando vuoi.</p>
+    </div>
+    <div id="popup-success" style="display:none;text-align:center;padding:1rem 0;">
+      <div style="font-size:2rem;margin-bottom:0.5rem;">✦</div>
+      <p style="font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-style:italic;color:#5a3535;margin-bottom:1rem;">La guida si sta aprendo!</p>
+      <a id="popup-pdf-link" href="#" target="_blank" style="display:inline-block;padding:0.875rem 2rem;background:linear-gradient(135deg,#c4906a,#a87658);border-radius:100px;color:white;font-size:0.8rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;text-decoration:none;">Apri la guida →</a>
+    </div>
+  </div>
+</div>
+
 
 </body>
 </html>
