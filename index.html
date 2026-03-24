@@ -855,7 +855,7 @@ footer {
 ═══════════════════════════════════════════ */
 @media (max-width: 1024px) {
   .section-inner { padding: 0 2.5rem; }
-  .about-split { grid-template-columns: 340px 1fr; gap: 3rem; }
+  .about-split { grid-template-columns: 1fr 1.4fr; gap: 2.5rem; align-items: start; }
   .reframe-split { gap: 3rem; }
   .offer-split { gap: 3rem; }
   .hero-content { padding: 2rem 2.5rem 3rem; }
@@ -1162,8 +1162,8 @@ footer {
 }
 .about-split {
   display: grid;
-  grid-template-columns: 420px 1fr;
-  gap: 6rem;
+  grid-template-columns: 380px 1fr;
+  gap: 4rem;
   align-items: start;
 }
 
@@ -1191,10 +1191,11 @@ footer {
   letter-spacing: 0.1em;
 }
 
-.about-photo-col { position: relative; }
+.about-photo-col { position: relative; min-width: 0; }
 .about-photo-wrap { position: relative; }
 .about-photo {
   width: 100%;
+  max-width: 100%;
   aspect-ratio: 3/4;
   object-fit: cover;
   object-position: center top;
@@ -1288,7 +1289,7 @@ footer {
   color: var(--rosegold);
 }
 @media (max-width: 800px) {
-  .about-split { grid-template-columns: 1fr; gap: 3rem; }
+  .about-split { grid-template-columns: 1fr 1.3fr; gap: 2rem; align-items: start; }
   .about-photo-wrap { max-width: 320px; margin: 0 auto; }
   .about-cert-strip { gap: 1rem; }
 }
