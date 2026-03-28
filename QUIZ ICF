@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>ICF Quiz ACC \u2013 Flash Card</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #fdf6f0 0%, #faf0f4 50%, #f5ede8 100%);
+    font-family: 'Jost', sans-serif;
+  }
+  .container {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 32px 20px;
+  }
+  .header { text-align: center; margin-bottom: 32px; }
+  .logo-text {
+    font-family: 'Jost', sans-serif;
+    font-size: 12px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: #b8896a;
+    margin-bottom: 4px;
+  }
+  .main-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(28px, 5vw, 42px);
+    font-weight: 300;
+    color: #2d2420;
+    line-height: 1.2;
+    margin-bottom: 8px;
+  }
+  .subtitle {
+    font-size: 13px;
+    font-weight: 300;
+    color: #9a7a6e;
+    letter-spacing: 1px;
+  }
+  .divider {
+    width: 60px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, #c9a07a, transparent);
+    margin: 20px auto;
+  }
+  .card {
+    background: rgba(255,255,255,0.88);
+    border-radius: 16px;
+    padding: 28px;
+    box-shadow: 0 4px 40px rgba(180,120,80,0.08);
+    border: 1px solid rgba(210,170,140,0.2);
+    margin-bottom: 16px;
+  }
+  /* INTRO */
+  .intro-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px;
+    font-weight: 300;
+    color: #3d2820;
+    line-height: 1.7;
+    text-align: center;
+    margin-bottom: 24px;
+  }
+  .features {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    margin-bottom: 28px;
+  }
+  .feature {
+    text-align: center;
+    padding: 14px;
+    background: rgba(255,255,255,0.6);
+    border-radius: 12px;
+    border: 1px solid rgba(210,170,140,0.2);
+  }
+  .feature-icon { font-size: 22px; margin-bottom: 6px; }
+  .feature-text { font-size: 12px; color: #7a5a50; line-height: 1.4; }
+  /* PROGRESS */
+  .progress-wrap {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+  }
+  .progress-label { font-size: 12px; color: #9a7a6e; }
+  .progress-bar-bg {
+    background: rgba(210,170,140,0.2);
+    border-radius: 10px;
+    height: 4px;
+    margin-bottom: 20px;
+    overflow: hidden;
+  }
+  .progress-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #c9a07a, #d4a5a5);
+    border-radius: 10px;
+    transition: width 0.4s ease;
+  }
+  /* BADGE */
+  .badge {
+    display: inline-block;
+    padding: 4px 14px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: white;
+    margin-bottom: 18px;
+  }
+  /* QUESTION */
+  .question-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(17px, 3vw, 21px);
+    font-weight: 400;
+    color: #2d2420;
+    line-height: 1.6;
+    margin-bottom: 24px;
+  }
+  /* OPTIONS */
+  .option {
+    width: 100%;
+    text-align: left;
+    padding: 13px 16px;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    border: 1.5px solid #e8d8cc;
+    background: rgba(255,255,255,0.7);
+    cursor: pointer;
+    font-family: 'Jost', sans-serif;
+    font-size: 13px;
+    color: #4a3830;
+    line-height: 1.5;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  .option:hover:not(:disabled) {
+    border-color: #c9a07a;
+    background: rgba(201,160,122,0.08);
+    transform: translateX(3px);
+  }
+  .option.selected { border-color: #b8896a; background: rgba(184,137,106,0.12); }
+  .option.correct { border-color: #7ab88a; background: rgba(122,184,138,0.12); color: #2a5c3a; }
+  .option.wrong { border-color: #d4837a; background: rgba(212,131,122,0.12); color: #7a2a2a; }
+  .option:disabled { cursor: default; }
+  .opt-letter {
+    min-width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 600;
+    background: rgba(201,160,122,0.2);
+    color: #b8896a;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  /* EXPLANATION */
+  .explanation {
+    background: linear-gradient(135deg, rgba(201,160,122,0.1), rgba(201,160,122,0.05));
+    border-left: 3px solid #c9a07a;
+    border-radius: 0 8px 8px 0;
+    padding: 14px;
+    margin-top: 18px;
+    font-size: 13px;
+    color: #5a4038;
+    line-height: 1.7;
+    display: none;
+  }
+  .explanation.visible { display: block; }
+  .explanation strong {
+    font-weight: 600;
+    color: #3d2820;
+    display: block;
+    margin-bottom: 4px;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  /* BUTTONS */
+  .btn-row { margin-top: 20px; display: flex; justify-content: flex-end; gap: 10px; }
+  .btn {
+    background: linear-gradient(135deg, #c9a07a, #b8896a);
+    color: white;
+    border: none;
+    padding: 13px 28px;
+    border-radius: 30px;
+    font-family: 'Jost', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 16px rgba(184,137,106,0.3);
+  }
+  .btn:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(184,137,106,0.4);
+  }
+  .btn:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
+  /* RESULTS */
+  .score-wrap { text-align: center; margin-bottom: 20px; }
+  .score-svg { margin: 0 auto 12px; display: block; }
+  .score-label-big {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    font-weight: 300;
+    color: #2d2420;
+  }
+  .comp-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+  }
+  .comp-name { font-size: 11px; color: #5a4038; min-width: 160px; }
+  .mini-bg { flex: 1; height: 6px; background: rgba(210,170,140,0.2); border-radius: 10px; overflow: hidden; }
+  .mini-fill { height: 100%; border-radius: 10px; transition: width 0.6s ease; }
+  .comp-pct { font-size: 11px; color: #9a7a6e; min-width: 32px; text-align: right; }
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px;
+    color: #2d2420;
+    font-weight: 400;
+    margin-bottom: 16px;
+  }
+  .feedback-box {
+    background: linear-gradient(135deg, rgba(201,160,122,0.08), rgba(212,165,165,0.08));
+    border: 1px solid rgba(201,160,122,0.25);
+    border-radius: 12px;
+    padding: 20px;
+    font-size: 13px;
+    color: #4a3830;
+    line-height: 1.8;
+    white-space: pre-wrap;
+    min-height: 80px;
+  }
+  .loading { text-align: center; padding: 24px; color: #9a7a6e; font-size: 14px; }
+  .loading-icon { font-size: 28px; display: block; margin-bottom: 8px; animation: pulse 1.5s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
+  @media(max-width:480px){
+    .features { grid-template-columns: 1fr 1fr; }
+    .comp-name { min-width: 120px; font-size: 10px; }
+    .card { padding: 18px; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <div class="logo-text">ICF Core Competencies</div>
+    <h1 class="main-title">Flash Card Quiz</h1>
+    <div class="subtitle">Certificazione ACC \u00b7 28 domande \u00b7 8 competenze</div>
+    <div class="divider"></div>
+  </div>
+  <div id="app"></div>
+</div>
+
+<script>
+const QUESTIONS = [
+  { id:1, competency:"Demonstrates Ethical Practice", code:"EthPrac", color:"#c9a96e",
+    q:"Un cliente ti chiede di condividere con il suo capo ci\u00f2 che hai discusso durante le sessioni. Come risponde un coach eticamente?",
+    opts:["Condivido tutto perch\u00e9 \u00e8 il capo a pagare","Rifiuto e spiego il principio di riservatezza, chiarendo che le informazioni rimangono confidenziali salvo accordi precedenti","Condivido solo i progressi positivi","Chiedo al cliente di parlare direttamente col suo capo"],
+    correct:1, exp:"La riservatezza \u00e8 un pilastro dell'etica ICF. Il coach deve proteggere la privacy del cliente. Eventuali eccezioni (es. sponsor aziendali) vanno definite prima, negli accordi." },
+  { id:2, competency:"Demonstrates Ethical Practice", code:"EthPrac", color:"#c9a96e",
+    q:"Cosa fa un coach che si comporta eticamente quando riconosce di non avere le competenze per supportare un cliente in un'area specifica?",
+    opts:["Continua comunque, cercando di fare del suo meglio","Ignora quella parte e si focalizza sugli obiettivi originali","Riconosce il limite, lo comunica al cliente e lo indirizza verso risorse pi\u00f9 adatte","Studia velocemente quell'area e non dice nulla al cliente"],
+    correct:2, exp:"L'etica ICF richiede onest\u00e0 sui propri limiti. Un coach integrante riconosce quando qualcuno (terapeuta, medico, altro specialista) pu\u00f2 servire meglio il cliente." },
+  { id:3, competency:"Demonstrates Ethical Practice", code:"EthPrac", color:"#c9a96e",
+    q:"Qual \u00e8 la differenza principale tra coaching, consulenza e terapia secondo il framework ICF?",
+    opts:["Non c'\u00e8 differenza sostanziale, dipende dal cliente","Il coaching si concentra sul presente e futuro per raggiungere obiettivi; la terapia lavora sul passato e sui traumi; la consulenza d\u00e0 soluzioni esperte","Il coaching \u00e8 pi\u00f9 economico delle altre due","Il coaching pu\u00f2 sostituire la terapia se il coach \u00e8 molto bravo"],
+    correct:1, exp:"ICF definisce il coaching come un processo orientato agli obiettivi e al futuro, distinto dalla terapia (lavoro clinico sul passato) e dalla consulenza (il consulente \u00e8 l'esperto che d\u00e0 soluzioni)." },
+  { id:4, competency:"Demonstrates Ethical Practice", code:"EthPrac", color:"#c9a96e",
+    q:"Un potenziale cliente \u00e8 il tuo ex partner. Cosa suggerisce l'etica ICF?",
+    opts:["Puoi fare coaching se entrambi siete d'accordo","Va bene se sono passati pi\u00f9 di 2 anni","Devi valutare attentamente il conflitto di interesse; solitamente non \u00e8 appropriato per via del bias relazionale","Non ci sono regole specifiche su questo"],
+    correct:2, exp:"ICF chiede di evitare conflitti di interesse e di gestire le relazioni duali con attenzione. Una relazione intima pregressa crea un bias che compromette la neutralit\u00e0 del coach." },
+
+  { id:5, competency:"Embodies a Coaching Mindset", code:"CoachMind", color:"#d4a5a5",
+    q:"Cosa significa 'tenere il cliente come esperto della propria vita' nella mindset del coaching?",
+    opts:["Il coach non deve avere opinioni proprie","Il coach crede che il cliente abbia le risorse e le risposte in s\u00e9; il ruolo del coach \u00e8 facilitare l'esplorazione, non dare soluzioni","Il coach fa sempre quello che il cliente dice","Il coach non pu\u00f2 fare domande difficili"],
+    correct:1, exp:"Il coaching mindset ICF si basa sulla fiducia nelle capacit\u00e0 del cliente. Il coach non \u00e8 l'esperto della vita del cliente \u2014 \u00e8 un partner che aiuta a sbloccare il potenziale gi\u00e0 presente." },
+  { id:6, competency:"Embodies a Coaching Mindset", code:"CoachMind", color:"#d4a5a5",
+    q:"Perch\u00e9 \u00e8 importante per un coach fare supervisione e sviluppo personale continuo?",
+    opts:["Per avere pi\u00f9 credenziali da mostrare ai clienti","Perch\u00e9 ICF lo richiede solo per il rinnovo della certificazione","Perch\u00e9 il coach \u00e8 lo strumento principale del lavoro; la crescita personale migliora direttamente la qualit\u00e0 del coaching","Non \u00e8 strettamente necessario se hai tanta esperienza"],
+    correct:2, exp:"Embodying the coaching mindset significa lavorare su s\u00e9 stessi in modo continuo. Il coach porta s\u00e9 stesso nella relazione \u2014 quindi il suo sviluppo interiore \u00e8 direttamente correlato alla qualit\u00e0 del lavoro." },
+  { id:7, competency:"Embodies a Coaching Mindset", code:"CoachMind", color:"#d4a5a5",
+    q:"Come si manifesta la 'curiosit\u00e0' come elemento del coaching mindset?",
+    opts:["Fare molte domande per ottenere pi\u00f9 informazioni sul problema","Esplorare le prospettive del cliente con apertura genuina, senza giudizi o agenda precostituita","Essere curiosi della vita privata del cliente","Studiare molto il settore del cliente prima della sessione"],
+    correct:1, exp:"La curiosit\u00e0 nel coaching mindset ICF \u00e8 orientata al cliente \u2014 apertura autentica verso il suo mondo interno, senza giudizio e senza agenda precostituita del coach." },
+
+  { id:8, competency:"Establishes & Maintains Agreements", code:"Agreements", color:"#a8c5b5",
+    q:"Cosa deve includere un accordo di coaching efficace a inizio percorso?",
+    opts:["Solo il numero di sessioni e il costo","La metodologia che user\u00e0 il coach","Obiettivi, struttura, ruoli, riservatezza, logistica e criteri di successo","Solo le aspettative del cliente"],
+    correct:2, exp:"ICF prevede che gli accordi coprano tutti gli aspetti del percorso: obiettivi chiari, struttura delle sessioni, responsabilit\u00e0 reciproche, confidenzialit\u00e0, e come si misurer\u00e0 il successo." },
+  { id:9, competency:"Establishes & Maintains Agreements", code:"Agreements", color:"#a8c5b5",
+    q:"A met\u00e0 sessione il cliente cambia completamente argomento rispetto all'obiettivo iniziale. Come risponde un coach esperto?",
+    opts:["Riporta subito il cliente all'obiettivo originale","Segue il cliente senza dire nulla","Riconosce il cambiamento, lo nomina, e chiede al cliente se vuole rinegoziare l'obiettivo della sessione","Lascia finire il cliente e poi torna all'obiettivo"],
+    correct:2, exp:"Mantenere gli accordi non significa rigidit\u00e0. Il coach osserva il cambiamento, lo rende visibile e restituisce al cliente la scelta \u2014 rispettando sia gli accordi che l'autonomia del cliente." },
+  { id:10, competency:"Establishes & Maintains Agreements", code:"Agreements", color:"#a8c5b5",
+    q:"Qual \u00e8 il focus principale nell'accordo di una singola sessione di coaching?",
+    opts:["Riprendere da dove ci si \u00e8 fermati la volta scorsa","Definire cosa il cliente vuole ottenere da questa specifica sessione","Decidere quali strumenti user\u00e0 il coach","Rivedere i progressi complessivi del percorso"],
+    correct:1, exp:"Ogni sessione ha un suo accordo specifico. Il coach chiede al cliente cosa vuole ottenere oggi \u2014 questo mette il cliente alla guida e definisce il successo della singola sessione." },
+
+  { id:11, competency:"Cultivates Trust and Safety", code:"TrustSafety", color:"#b5a8c5",
+    q:"Come crea sicurezza psicologica un coach in una sessione?",
+    opts:["Dicendo al cliente che pu\u00f2 fidarsi e che \u00e8 in un posto sicuro","Con ascolto non giudicante, accettazione incondizionata, riservatezza e apertura genuina","Essendo sempre d'accordo con il cliente","Evitando argomenti che potrebbero turbare il cliente"],
+    correct:1, exp:"La sicurezza si costruisce con comportamenti concreti, non con parole. L'atteggiamento non giudicante, la presenza autentica e il rispetto incondizionato sono i pilastri della sicurezza psicologica." },
+  { id:12, competency:"Cultivates Trust and Safety", code:"TrustSafety", color:"#b5a8c5",
+    q:"Un cliente sembra a disagio quando si tocca un certo argomento. Come risponde un coach attento alla sicurezza?",
+    opts:["Evita quell'argomento per sempre","Lo affronta direttamente e dice al cliente di affrontarlo","Riconosce il disagio, lo nomina con delicatezza e chiede al cliente come vuole procedere","Ignora il disagio e continua"],
+    correct:2, exp:"Coltivare la sicurezza significa riconoscere e rispettare i segnali del cliente. Nominare l'osservazione con delicatezza e restituire la scelta al cliente preserva sia la fiducia che l'autonomia." },
+  { id:13, competency:"Cultivates Trust and Safety", code:"TrustSafety", color:"#b5a8c5",
+    q:"Cosa si intende per 'presenza autentica' nel costruire la relazione di fiducia?",
+    opts:["Essere informali e usare il linguaggio del cliente","Mostrare le proprie emozioni in ogni sessione","Essere genuinamente presenti, trasparenti e congruenti tra ci\u00f2 che si dice e come ci si comporta","Non avere un'agenda e lasciare che la sessione fluisca naturalmente"],
+    correct:2, exp:"L'autenticit\u00e0 \u00e8 fondamentale nella relazione di coaching. Il cliente percepisce la congruenza \u2014 quando le parole e il comportamento del coach sono allineati, si crea una base di fiducia profonda." },
+
+  { id:14, competency:"Maintains Presence", code:"Presence", color:"#c5b8a8",
+    q:"Cosa significa essere 'pienamente presenti' durante una sessione di coaching?",
+    opts:["Non usare il telefono durante la sessione","Stare fisicamente nella stessa stanza del cliente","Essere completamente disponibili, aperti e flessibili \u2014 senza agenda precostituita, ascoltando su pi\u00f9 livelli","Ricordare tutto quello che il cliente ha detto nelle sessioni precedenti"],
+    correct:2, exp:"La presenza ICF \u00e8 uno stato interno \u2014 non solo fisica. Significa essere aperti a ci\u00f2 che emerge, senza essere guidati dalla propria agenda, ascoltando parole, emozioni e corpo." },
+  { id:15, competency:"Maintains Presence", code:"Presence", color:"#c5b8a8",
+    q:"Il coach nota di essere distratto dai propri pensieri durante la sessione. Cosa fa un coach consapevole?",
+    opts:["Continua fingendo di ascoltare","Interrompe il cliente e si scusa","Riconosce internamente la distrazione, la lascia andare e riporta l'attenzione al cliente","Prende appunti per non perdersi nulla"],
+    correct:2, exp:"Mantenere la presenza richiede una pratica di consapevolezza continua. Il coach che nota la propria distrazione e torna al cliente dimostra padronanza \u2014 non un fallimento." },
+  { id:16, competency:"Maintains Presence", code:"Presence", color:"#c5b8a8",
+    q:"Perch\u00e9 il silenzio \u00e8 uno strumento potente nel coaching?",
+    opts:["D\u00e0 tempo al coach di pensare alla prossima domanda","Crea disagio che spinge il cliente a parlare","Offre spazio al cliente per elaborare, connettersi con s\u00e9 stesso e accedere a insight pi\u00f9 profondi","Indica che il coach \u00e8 attento e non vuole interrompere"],
+    correct:2, exp:"Il silenzio consapevole \u00e8 presenza attiva. D\u00e0 al cliente lo spazio per andare in profondit\u00e0 \u2014 spesso i momenti di silenzio precedono le realizzazioni pi\u00f9 importanti." },
+
+  { id:17, competency:"Listens Actively", code:"ActiveListen", color:"#a8b5c5",
+    q:"Qual \u00e8 la differenza tra l'ascolto di livello 1, 2 e 3 nel coaching?",
+    opts:["Livello 1 \u00e8 superficiale, livello 2 \u00e8 intermedio, livello 3 \u00e8 esperto","Livello 1: focus su s\u00e9 stessi; Livello 2: focus sulle parole del cliente; Livello 3: ascolto del campo intero \u2014 parole, emozioni, energia, non detto","Si riferisce al volume della voce del cliente","Livello 1 \u00e8 per il coaching individuale, livello 3 \u00e8 per il coaching di gruppo"],
+    correct:1, exp:"Il framework dei livelli di ascolto (Whitworth et al.) \u00e8 fondamentale: al livello 1 siamo nella nostra testa; al livello 2 ascoltiamo il cliente; al livello 3 ascoltiamo tutto il campo \u2014 incluso ci\u00f2 che non viene detto." },
+  { id:18, competency:"Listens Actively", code:"ActiveListen", color:"#a8b5c5",
+    q:"Un cliente dice: 'Sto benissimo' ma la voce \u00e8 piatta e il tono esausto. Cosa fa un coach che ascolta attivamente?",
+    opts:["Accetta la risposta e va avanti","Dice 'non ti credo'","Riflette l'incongruenza con delicatezza: 'Dici di stare bene, ma noto qualcosa nella tua voce\u2026'","Chiede 'Sei sicuro?'"],
+    correct:2, exp:"L'ascolto attivo include l'ascolto del non verbale e delle incongruenze. Restituire l'osservazione con curiosit\u00e0 \u2014 non giudizio \u2014 apre uno spazio autentico." },
+  { id:19, competency:"Listens Actively", code:"ActiveListen", color:"#a8b5c5",
+    q:"Cosa si intende per 'ascoltare per comprendere' piuttosto che 'ascoltare per rispondere'?",
+    opts:["Fare pi\u00f9 domande di quante se ne fanno normalmente","Non pensare alla prossima domanda mentre il cliente parla, ma essere completamente presenti al significato di ci\u00f2 che condivide","Aspettare che il cliente finisca prima di parlare","Prendere appunti durante la sessione"],
+    correct:1, exp:"L'ascolto che precede la risposta \u00e8 spesso ascolto del coach, non del cliente. L'ascolto attivo ICF richiede che il coach si svuoti della propria agenda e accolga il significato del cliente." },
+  { id:20, competency:"Listens Actively", code:"ActiveListen", color:"#a8b5c5",
+    q:"Come usa il linguaggio del cliente un coach che ascolta attivamente?",
+    opts:["Lo parafrasa sempre con termini pi\u00f9 tecnici","Lo rispecchia e lo usa nelle proprie domande, rispettando le metafore e le parole chiave del cliente","Lo corregge se grammaticalmente sbagliato","Lo ignora e usa un linguaggio neutro"],
+    correct:1, exp:"Usare le parole del cliente \u2014 specialmente le metafore \u2014 dimostra ascolto profondo e rinforza la sicurezza. Sostituire il linguaggio del cliente con il proprio introduce il filtro del coach." },
+
+  { id:21, competency:"Evokes Awareness", code:"EvokeAwareness", color:"#c5a8b5",
+    q:"Qual \u00e8 la caratteristica di una domanda potente nel coaching?",
+    opts:["\u00c8 lunga e articolata, per esplorare ogni sfumatura","\u00c8 chiusa per ottenere risposte precise","\u00c8 aperta, concisa, e genera riflessione profonda nel cliente \u2014 spesso sfida i pattern di pensiero","Inizia sempre con 'Come ti senti?'"],
+    correct:2, exp:"Le domande potenti ICF sono brevi, aperte, e toccano qualcosa di significativo per il cliente. Sfidano le assunzioni, aprono nuove prospettive e generano insight \u2014 non semplicemente raccolgono informazioni." },
+  { id:22, competency:"Evokes Awareness", code:"EvokeAwareness", color:"#c5a8b5",
+    q:"Un coach nota che il cliente usa ripetutamente la parola 'dovrei'. Cosa fa?",
+    opts:["Ignora la parola e ascolta il contenuto","Dice al cliente che 'dovrei' \u00e8 negativo","Rispecchia il pattern e chiede: 'Noto che hai usato spesso la parola dovrei \u2014 cosa significa per te?'","Suggerisce di sostituire 'dovrei' con 'voglio'"],
+    correct:2, exp:"Notare e restituire i pattern linguistici \u00e8 evocare consapevolezza. Il coach non interpreta n\u00e9 giudica \u2014 osserva e invita il cliente a esplorare il significato che quella parola ha per lui." },
+  { id:23, competency:"Evokes Awareness", code:"EvokeAwareness", color:"#c5a8b5",
+    q:"Cosa si intende per 'reframe' (reincorniciamento) nel coaching?",
+    opts:["Correggere il modo in cui il cliente vede la situazione","Offrire una prospettiva alternativa che aiuta il cliente a vedere la situazione in modo nuovo e potenzialmente pi\u00f9 utile","Dire al cliente che sta pensando in modo sbagliato","Riassum
